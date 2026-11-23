@@ -1,0 +1,2449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>JIO PLAY</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800;900&family=Plus+Jakarta+Sans:wght@500;600;700;800&family=JetBrains+Mono:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #070913;
+  --bg-mesh:
+    radial-gradient(circle at 12% 6%, rgba(139, 92, 246, 0.28) 0%, transparent 45%),
+    radial-gradient(circle at 88% 12%, rgba(236, 72, 153, 0.22) 0%, transparent 46%),
+    radial-gradient(circle at 50% 95%, rgba(6, 182, 212, 0.18) 0%, transparent 50%),
+    linear-gradient(175deg, #070913 0%, #0d1124 52%, #080b18 100%);
+  --fg: #f8fafc;
+  --mut: #9ca3af;
+  --bd: rgba(139, 92, 246, 0.28);
+  --bd-strong: rgba(167, 139, 250, 0.52);
+  --card: rgba(15, 20, 42, 0.9);
+  --card-solid: #111732;
+  --surface-2: #171f42;
+  --ok: #34d399;
+  --err: #fb7185;
+  --err-soft: rgba(244, 63, 94, 0.14);
+  --warn-bg: rgba(245, 158, 11, 0.12);
+  --warn-bd: rgba(251, 191, 36, 0.42);
+  --shadow-sm: 0 4px 14px rgba(2, 6, 23, 0.45);
+  --shadow-md: 0 16px 40px rgba(2, 6, 23, 0.68);
+  box-sizing: border-box;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0 auto;
+  background-color: var(--bg);
+  background-image: var(--bg-mesh);
+  background-attachment: fixed;
+  min-height: 100vh;
+  color: var(--fg);
+  font-family: "Plus Jakarta Sans", "Outfit", system-ui, -apple-system, sans-serif;
+  font-size: 16px;
+  line-height: 1.45;
+  max-width: 540px;
+  padding: 12px 12px 28px;
+}
+.site-shell {
+  background: var(--card);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1.5px solid var(--bd-strong);
+  border-radius: 24px;
+  padding: 13px;
+  box-shadow: var(--shadow-md), 0 0 0 1px rgba(124, 58, 237, 0.16);
+  position: relative;
+}
+header {
+  display: grid;
+  grid-template-columns: 44px 1fr 44px;
+  align-items: center;
+  background:
+    radial-gradient(circle at 80% 20%, rgba(236, 72, 153, 0.24), transparent 55%),
+    linear-gradient(135deg, #13102b 0%, #24174e 52%, #112240 100%);
+  border: 1.5px solid rgba(167, 139, 250, 0.52);
+  border-radius: 18px;
+  padding: 10px;
+  margin-bottom: 12px;
+  box-shadow: 0 10px 26px rgba(6, 8, 24, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.16);
+  position: relative;
+  overflow: hidden;
+}
+header::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.11) 1px, transparent 0);
+  background-size: 14px 14px;
+  opacity: 0.35;
+  pointer-events: none;
+}
+.menu-btn {
+  width: 42px;
+  height: 42px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  border-radius: 13px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(196, 181, 253, 0.35);
+  color: #fff;
+  z-index: 1;
+}
+.menu-btn span {
+  display: block;
+  width: 18px;
+  height: 2.3px;
+  background: linear-gradient(90deg, #38bdf8, #e879f9);
+  border-radius: 99px;
+}
+.brand-stage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  user-select: none;
+  z-index: 1;
+}
+.brand-wordmark {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: "Outfit", system-ui, sans-serif;
+  font-size: 25px;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  line-height: 1.05;
+}
+.brand-jio {
+  background: linear-gradient(135deg, #38bdf8 0%, #818cf8 55%, #c084fc 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.brand-play {
+  background: linear-gradient(135deg, #fbbf24 0%, #f472b6 55%, #fb7185 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.brand-ribbon { width: 112px; height: 6px; margin-top: 3px; }
+.home-dot-btn {
+  width: 42px;
+  height: 42px;
+  padding: 0;
+  border-radius: 13px;
+  background: linear-gradient(135deg, #06b6d4 0%, #8b5cf6 55%, #ec4899 100%);
+  color: #ffffff;
+  border: 1.5px solid rgba(255, 255, 255, 0.36);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+}
+.session-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 7px 11px;
+  margin-bottom: 10px;
+  border-radius: 14px;
+  background: rgba(15, 23, 42, 0.78);
+  border: 1px solid rgba(167, 139, 250, 0.32);
+  font-size: 12.5px;
+}
+.user-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 700;
+  color: #e2e8f0;
+  flex-wrap: wrap;
+}
+.role-chip {
+  font-family: "Outfit", sans-serif;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 2px 7px;
+  border-radius: 99px;
+  background: rgba(56, 189, 248, 0.2);
+  color: #7dd3fc;
+  border: 1px solid rgba(125, 211, 252, 0.4);
+}
+.role-chip.admin {
+  background: rgba(245, 158, 11, 0.22);
+  color: #fde68a;
+  border-color: rgba(251, 191, 36, 0.5);
+}
+.status-chip {
+  font-family: "Outfit", sans-serif;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 2px 7px;
+  border-radius: 99px;
+}
+.status-chip.active {
+  background: rgba(52, 211, 153, 0.18);
+  color: #6ee7b7;
+  border: 1px solid rgba(52, 211, 153, 0.45);
+}
+.status-chip.paused {
+  background: rgba(251, 191, 36, 0.2);
+  color: #fde68a;
+  border: 1px solid rgba(251, 191, 36, 0.5);
+}
+.status-chip.blocked {
+  background: rgba(244, 63, 94, 0.2);
+  color: #fda4af;
+  border: 1px solid rgba(251, 113, 133, 0.5);
+}
+.logout-mini {
+  padding: 5px 10px;
+  font-size: 11px;
+  border-radius: 9px;
+  background: rgba(244, 63, 94, 0.18);
+  color: #fda4af;
+  border: 1px solid rgba(251, 113, 133, 0.45);
+}
+.drawer-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(4, 6, 15, 0.72);
+  backdrop-filter: blur(5px);
+  z-index: 90;
+}
+.drawer {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  bottom: 10px;
+  width: 280px;
+  max-width: 82vw;
+  background: var(--card-solid);
+  border: 1.5px solid var(--bd-strong);
+  border-radius: 22px;
+  z-index: 100;
+  padding: 16px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  overflow-y: auto;
+}
+.drawer-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  margin-bottom: 4px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #171336 0%, #2a1857 100%);
+  border: 1px solid rgba(167, 139, 250, 0.42);
+}
+.drawer-close {
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  border-radius: 10px;
+  background: rgba(244, 63, 94, 0.22);
+  color: #fda4af;
+  border: 1px solid rgba(251, 113, 133, 0.5);
+  font-weight: 800;
+}
+.nav-item {
+  width: 100%;
+  text-align: left;
+  padding: 12px 14px;
+  border-radius: 14px;
+  border: 1.5px solid var(--bd);
+  background: var(--surface-2);
+  color: var(--fg);
+  font-family: "Outfit", sans-serif;
+  font-size: 14.5px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.nav-item.on {
+  background: linear-gradient(135deg, #7c3aed 0%, #db2777 100%);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.42);
+}
+.nav-pill {
+  font-size: 12px;
+  font-weight: 800;
+  padding: 2px 9px;
+  border-radius: 99px;
+  background: rgba(255, 255, 255, 0.22);
+}
+select, input, button, textarea {
+  font-family: inherit;
+  color: var(--fg);
+  background: var(--surface-2);
+  border: 1.5px solid var(--bd);
+  border-radius: 13px;
+  padding: 10px 12px;
+}
+select:focus, input:focus, textarea:focus {
+  outline: none;
+  border-color: #c084fc;
+}
+button {
+  cursor: pointer;
+  font-family: "Outfit", "Plus Jakarta Sans", sans-serif;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-size: 13px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+}
+button:disabled {
+  opacity: 0.48;
+  cursor: not-allowed;
+}
+button.btn-primary {
+  background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+  color: #fff;
+  border: 1.5px solid #a5b4fc;
+}
+button.btn-add-entry {
+  background: linear-gradient(135deg, #06b6d4 0%, #3b82f6 52%, #8b5cf6 100%);
+  color: #ffffff;
+  border: 1.5px solid rgba(125, 211, 252, 0.72);
+  font-size: 15px;
+  letter-spacing: 0.08em;
+  padding: 14px 16px;
+}
+button.btn-gen {
+  background: linear-gradient(135deg, #ec4899 0%, #8b5cf6 55%, #6366f1 100%);
+  color: #ffffff;
+  border: 1.5px solid rgba(249, 168, 212, 0.72);
+  font-size: 15px;
+  padding: 14px 14px;
+}
+button.btn-new-head {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: #fff;
+  border: 1.5px solid #6ee7b7;
+  padding: 10px 10px;
+  font-size: 11.5px;
+}
+button.btn-clear {
+  background: linear-gradient(135deg, #334155 0%, #1e293b 100%);
+  color: #e2e8f0;
+  border: 1.5px solid #64748b;
+}
+button.btn-bt {
+  background: linear-gradient(135deg, #06b6d4 0%, #0284c7 100%);
+  color: #fff;
+  border: 1.5px solid #67e8f9;
+  font-size: 14px;
+  padding: 12px 14px;
+}
+button.btn-copy { background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%); color: #fff; border: 1.5px solid #a5b4fc; }
+button.btn-share { background: linear-gradient(135deg, #10b981 0%, #0d9488 100%); color: #fff; border: 1.5px solid #6ee7b7; }
+button.btn-print { background: linear-gradient(135deg, #a855f7 0%, #7c3aed 100%); color: #fff; border: 1.5px solid #d8b4fe; }
+button.danger { background: linear-gradient(135deg, #f43f5e 0%, #be123c 100%); color: #fff; border: 1.5px solid #fda4af; }
+.row { display: flex; gap: 7px; margin: 9px 0; }
+.row > * { flex: 1; min-width: 0; }
+.head-box, .input-box, .breakdown-card, .stat-group, .chart-card, .bt-box {
+  background: var(--card-solid);
+  border: 1.5px solid var(--bd);
+  border-radius: 17px;
+  padding: 10px;
+  margin: 10px 0;
+}
+#head { flex: 1.35 1 0; font-family: "Outfit", sans-serif; font-weight: 800; font-size: 14px; }
+#sessionSel { flex: 0.72 1 0; min-width: 84px; font-family: "Outfit", sans-serif; font-weight: 800; font-size: 13px; }
+.session-hint { font-size: 11.5px; color: var(--mut); margin-top: 6px; }
+.paused-banner {
+  background: var(--warn-bg);
+  border: 1.5px solid var(--warn-bd);
+  color: #fde68a;
+  border-radius: 13px;
+  padding: 10px 12px;
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+#inp {
+  width: 100%;
+  height: 44vh;
+  min-height: 220px;
+  max-height: 380px;
+  resize: none;
+  font-size: 19px;
+  font-family: "JetBrains Mono", monospace;
+  background: rgba(7, 10, 24, 0.72);
+}
+#errbox {
+  background: var(--err-soft);
+  color: var(--err);
+  border: 1.5px solid rgba(251, 113, 133, 0.65);
+  border-radius: 11px;
+  padding: 8px 10px;
+  font-size: 13px;
+  margin-top: 8px;
+}
+#list {
+  height: 30vh;
+  min-height: 170px;
+  overflow-y: auto;
+  border: 1.5px solid var(--bd);
+  border-radius: 17px;
+  padding: 6px 12px;
+  margin: 10px 0;
+  background: rgba(8, 12, 28, 0.68);
+}
+.line {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 0;
+  border-bottom: 1px dashed rgba(148, 163, 184, 0.24);
+  font-size: 18px;
+  font-family: "JetBrains Mono", monospace;
+}
+.line:last-child { border-bottom: 0; }
+.line .main { flex: 1; word-break: break-word; cursor: pointer; font-weight: 700; }
+.tag {
+  font-family: "Outfit", sans-serif;
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+  padding: 3px 9px;
+  border-radius: 99px;
+  background: rgba(139, 92, 246, 0.22);
+  color: #ddd6fe;
+}
+.slip-vertical-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 10px 0;
+  max-height: 220px;
+  overflow-y: auto;
+}
+.slip-v-item {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 13px;
+  border-radius: 12px;
+  border: 1.5px solid var(--bd);
+  background: var(--surface-2);
+  color: var(--fg);
+  font-family: "JetBrains Mono", monospace;
+  font-size: 14px;
+  font-weight: 800;
+  text-transform: none;
+  letter-spacing: 0.01em;
+}
+.slip-v-item.active {
+  background: linear-gradient(135deg, #06b6d4 0%, #7c3aed 100%);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.55);
+}
+.slip-v-meta {
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  opacity: 0.9;
+}
+.del-x { color: #94a3b8; text-decoration: none; font-size: 17px; padding: 2px 7px; }
+.b-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 7px; margin-bottom: 9px; }
+.b-item {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  padding: 7px 10px;
+  border-radius: 11px;
+  background: rgba(15, 20, 42, 0.85);
+}
+.b-item span:last-child { font-weight: 800; font-family: "JetBrains Mono", monospace; color: #7dd3fc; }
+.tot, .grand-box {
+  font-family: "Outfit", sans-serif;
+  font-weight: 900;
+  font-size: 20px;
+  padding: 11px 14px;
+  border-radius: 13px;
+  background: linear-gradient(135deg, #4f46e5 0%, #9333ea 55%, #db2777 100%);
+  color: #ffffff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 8px 0;
+}
+.h {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 14px;
+  background: var(--surface-2);
+  border: 1.5px solid var(--bd);
+  border-left: 4px solid #c084fc;
+  border-radius: 14px;
+  margin: 8px 0;
+  cursor: pointer;
+}
+.h small { color: var(--mut); }
+.stat-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid rgba(167, 139, 250, 0.25);
+}
+.stat-head b { font-family: "Outfit", sans-serif; font-size: 15px; }
+.stat-head span { font-family: "JetBrains Mono", monospace; font-weight: 800; color: #7dd3fc; }
+.stat-vals { font-family: "JetBrains Mono", monospace; font-size: 14px; line-height: 1.5; word-break: break-word; }
+.load-filter-table { width: 100%; border-collapse: collapse; margin-bottom: 10px; }
+.load-filter-table td { padding: 6px 4px; }
+.load-filter-label { font-family: "Outfit", sans-serif; font-weight: 700; font-size: 13.5px; width: 40%; }
+.load-filter-table select { width: 100%; }
+.limit-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 7px;
+  margin: 8px 0;
+}
+.limit-field {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.limit-field label {
+  font-family: "Outfit", sans-serif;
+  font-size: 11.5px;
+  font-weight: 700;
+  color: #cbd5e1;
+}
+.limit-field input {
+  padding: 8px 10px;
+  font-size: 13.5px;
+  font-family: "JetBrains Mono", monospace;
+}
+.mode-switch-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-bottom: 10px; }
+.mode-chip-btn { padding: 10px 6px; font-size: 12px; background: var(--surface-2); color: #cbd5e1; }
+.mode-chip-btn.active { background: linear-gradient(135deg, #06b6d4 0%, #7c3aed 100%); color: #fff; }
+.chart-columns {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  gap: 3px;
+  height: 210px;
+  align-items: end;
+  padding: 20px 2px 4px;
+  border-bottom: 1.5px solid rgba(167, 139, 250, 0.35);
+}
+.chart-col { height: 100%; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; cursor: pointer; }
+.chart-rs { font-family: "JetBrains Mono", monospace; font-size: 9.5px; font-weight: 800; color: #fde047; margin-bottom: 4px; white-space: nowrap; }
+.chart-bar { width: 100%; min-height: 4px; border-radius: 6px 6px 2px 2px; background: #64748b; }
+.chart-bar.hot { background: linear-gradient(180deg, #fbbf24 0%, #ec4899 100%); }
+.chart-bar.mid { background: linear-gradient(180deg, #38bdf8 0%, #6366f1 100%); }
+.chart-digits { display: grid; grid-template-columns: repeat(10, 1fr); gap: 3px; padding: 7px 2px 4px; text-align: center; }
+.chart-digit-lbl { font-family: "Outfit", sans-serif; font-weight: 800; font-size: 13.5px; }
+.load-rank-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 7px; margin-top: 8px; }
+.load-num-tile {
+  display: flex;
+  justify-content: space-between;
+  padding: 9px 11px;
+  border-radius: 12px;
+  background: rgba(15, 23, 42, 0.88);
+  border: 1px solid rgba(167, 139, 250, 0.3);
+  cursor: pointer;
+}
+.load-num-key, .load-num-rs { font-family: "JetBrains Mono", monospace; font-weight: 800; }
+.load-num-rs { color: #fde047; }
+.gold-pill-banner {
+  margin-top: 10px;
+  padding: 10px 14px;
+  border-radius: 13px;
+  background: linear-gradient(180deg, #fde047 0%, #eab308 100%);
+  color: #1e1b08;
+  font-family: "Outfit", sans-serif;
+  font-weight: 800;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+}
+.verify-card {
+  background: var(--surface-2);
+  border: 1.5px solid var(--bd);
+  border-radius: 14px;
+  padding: 11px 12px;
+  margin: 8px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+.verify-card.passed { border-color: rgba(52, 211, 153, 0.65); }
+.user-row {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 10px;
+  margin-top: 8px;
+  border-radius: 13px;
+  background: rgba(15, 23, 42, 0.78);
+  border: 1px solid rgba(167, 139, 250, 0.24);
+  font-size: 13px;
+}
+.user-row-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.user-controls-row {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.user-controls-row select {
+  padding: 6px 9px;
+  font-size: 12px;
+  font-family: "Outfit", sans-serif;
+  font-weight: 800;
+}
+.mult-box {
+  background: rgba(8, 12, 28, 0.72);
+  border: 1px dashed rgba(167, 139, 250, 0.35);
+  border-radius: 11px;
+  padding: 9px;
+  margin-top: 4px;
+}
+.hisab-slip-pre {
+  background: rgba(7, 10, 24, 0.85);
+  border: 1.5px solid rgba(167, 139, 250, 0.45);
+  border-radius: 13px;
+  padding: 12px;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 14px;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  color: #f8fafc;
+  margin: 8px 0;
+}
+.hisab-line-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 9px 11px;
+  border-radius: 11px;
+  background: rgba(15, 23, 42, 0.78);
+  margin-top: 6px;
+  font-size: 13.5px;
+}
+.plus-val { color: #6ee7b7; font-family: "JetBrains Mono", monospace; font-weight: 800; }
+.minus-val { color: #fda4af; font-family: "JetBrains Mono", monospace; font-weight: 800; }
+.hide { display: none !important; }
+#slip {
+  background: #f8fafc;
+  color: #090d16;
+  border: 2px dashed #6366f1;
+  border-radius: 16px;
+  padding: 14px;
+  margin: 10px 0;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 14px;
+}
+#slip h2 { text-align: center; margin: 4px 0 6px; font-size: 18px; }
+#slip .ts { text-align: right; font-size: 12px; }
+#slip .l { display: flex; justify-content: space-between; gap: 8px; padding: 2px 0; }
+#slip hr { border: 0; border-top: 1px dashed #334155; margin: 6px 0; }
+.bt-status { font-size: 12px; color: var(--mut); margin-top: 6px; }
+.note-box { background: var(--warn-bg); border: 1.5px solid var(--warn-bd); border-radius: 14px; padding: 10px 12px; font-size: 13px; margin: 8px 0; }
+@media print {
+  body { background: #fff !important; padding: 0 !important; }
+  body > *:not(#slipwrap) { display: none !important; }
+  #slipwrap .no { display: none !important; }
+  #slip { border: 0; margin: 0; padding: 2px; width: 58mm; }
+}
+</style>
+</head>
+<body>
+<div id="loginGate" class="site-shell">
+  <header style="grid-template-columns:1fr;text-align:center">
+    <div class="brand-stage" style="cursor:default">
+      <div class="brand-wordmark">
+        <span class="brand-jio">JIO</span>
+        <span class="brand-play">PLAY</span>
+      </div>
+      <svg class="brand-ribbon" viewBox="0 0 112 6" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <defs>
+          <linearGradient id="jpLoginGrad" x1="0" y1="0" x2="112" y2="0" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#38bdf8"/>
+            <stop offset="45%" stop-color="#a855f7"/>
+            <stop offset="100%" stop-color="#f472b6"/>
+          </linearGradient>
+        </defs>
+        <path d="M2 3.5C32 1 80 1 110 3.5" stroke="url(#jpLoginGrad)" stroke-width="3" stroke-linecap="round"/>
+        <circle cx="56" cy="2.3" r="2.2" fill="#fbbf24"/>
+      </svg>
+    </div>
+  </header>
+  <div class="stat-group">
+    <div class="stat-head"><b>User / Admin Login</b><span style="font-size:12px;color:#c4b5fd">v39</span></div>
+    <div class="row">
+      <input id="loginId" placeholder="User ID (e.g. admin)" value="admin" autocomplete="username">
+    </div>
+    <div class="row">
+      <input id="loginPass" type="password" placeholder="Password" value="1234" autocomplete="current-password">
+    </div>
+    <div id="loginErr" class="hide" style="color:var(--err);font-size:13px;margin:6px 0"></div>
+    <div class="row">
+      <button type="button" id="loginBtn" class="btn-add-entry">Login to JIO PLAY</button>
+    </div>
+    <div class="bt-status">Default Admin: <b>admin</b> / <b>1234</b></div>
+  </div>
+</div>
+
+<div id="drawerBackdrop" class="drawer-backdrop hide"></div>
+<aside id="navDrawer" class="drawer hide" aria-label="Menu">
+  <div class="drawer-top">
+    <div class="brand-wordmark" style="font-size:19px">
+      <span class="brand-jio">JIO</span>
+      <span class="brand-play">PLAY</span>
+    </div>
+    <button type="button" id="closeMenu" class="drawer-close" aria-label="Close Menu">&#10005;</button>
+  </div>
+  <button type="button" id="t1" class="nav-item on"><span>New Slip</span></button>
+  <button type="button" id="t2" class="nav-item"><span>History</span><span class="nav-pill" id="hc">0</span></button>
+  <button type="button" id="t3" class="nav-item"><span>Data</span></button>
+  <button type="button" id="t6" class="nav-item admin-only"><span>+ Loading</span></button>
+  <button type="button" id="t7" class="nav-item admin-only"><span>Hisab</span></button>
+  <button type="button" id="t5" class="nav-item"><span>Verify Result</span></button>
+  <button type="button" id="t4" class="nav-item admin-only"><span>Sync / Users</span></button>
+  <button type="button" id="t8" class="nav-item admin-only"><span>Market</span></button>
+</aside>
+
+<div id="app" class="site-shell hide">
+  <header>
+    <button type="button" id="openMenu" class="menu-btn" aria-label="Open Menu">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="brand-stage" id="logoHome">
+      <div class="brand-wordmark">
+        <span class="brand-jio">JIO</span>
+        <span class="brand-play">PLAY</span>
+      </div>
+      <svg class="brand-ribbon" viewBox="0 0 112 6" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <defs>
+          <linearGradient id="jpRibbonGrad" x1="0" y1="0" x2="112" y2="0" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#38bdf8"/>
+            <stop offset="45%" stop-color="#a855f7"/>
+            <stop offset="100%" stop-color="#f472b6"/>
+          </linearGradient>
+        </defs>
+        <path d="M2 3.5C32 1 80 1 110 3.5" stroke="url(#jpRibbonGrad)" stroke-width="3" stroke-linecap="round"/>
+        <circle cx="56" cy="2.3" r="2.2" fill="#fbbf24"/>
+      </svg>
+    </div>
+    <button type="button" id="quickNewBtn" class="home-dot-btn" title="New Slip" aria-label="New Slip">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <polygon points="5 3 19 12 5 21 5 3" fill="rgba(255,255,255,0.22)"/>
+      </svg>
+    </button>
+  </header>
+
+  <div class="session-bar">
+    <div class="user-badge">
+      <span id="activeUserLabel">USER</span>
+      <span id="activeRoleBadge" class="role-chip">USER</span>
+      <span id="activeStatusBadge" class="status-chip active">ACTIVE</span>
+      <span id="cloudBadge" style="font-size:11px;color:var(--mut)">Local</span>
+    </div>
+    <button type="button" id="logoutBtn" class="logout-mini">Logout</button>
+  </div>
+
+  <!-- TAB 1: NEW SLIP -->
+  <div id="desk">
+    <div id="userSlipLockBanner" class="paused-banner hide">
+      Slip generation is PAUSED by Admin. You can still view your slips, data, and results.
+    </div>
+    <div class="head-box">
+      <div class="row">
+        <select id="head"></select>
+        <select id="sessionSel" aria-label="Session">
+          <option value="OPEN">OPEN</option>
+          <option value="CLOSE">CLOSE</option>
+        </select>
+      </div>
+      <div class="session-hint" id="sessionHint">OPEN: Single, Jodi, non-decremented PAANA (sp/dp/tp/fm), Cycles (/../////), JK &amp; SANGAM.</div>
+      <div class="session-hint" id="cutoffStatusHint" style="color:#7dd3fc"></div>
+    </div>
+    <div class="input-box">
+      <div class="row">
+        <textarea id="inp" placeholder="PLAY here!!"></textarea>
+      </div>
+      <div id="errbox" class="hide"></div>
+      <div class="row">
+        <button type="button" id="add" class="btn-add-entry">Add Entry</button>
+      </div>
+    </div>
+    <div id="list"></div>
+    <div class="breakdown-card">
+      <div class="b-grid" id="liveBreakdown"></div>
+      <div class="tot">
+        <span>Grand Total</span>
+        <span id="total">0</span>
+      </div>
+    </div>
+    <div class="row">
+      <button type="button" id="gen" class="btn-gen">Generate &amp; Save Slip</button>
+      <button type="button" id="clr" class="btn-clear" style="flex:0 0 auto;padding:14px 15px">Clear</button>
+    </div>
+  </div>
+
+  <!-- TAB 2: HISTORY -->
+  <div id="hist" class="hide">
+    <div class="row">
+      <input id="hsearch" placeholder="Search Slip ID, heading or entry...">
+      <select id="hfilter" style="flex:0 0 42%"></select>
+    </div>
+    <div class="row admin-only" id="hUserRow">
+      <select id="hUserFilter" aria-label="Filter by User"></select>
+    </div>
+    <div id="hlist"></div>
+  </div>
+
+  <!-- TAB 3: DATA -->
+  <div id="data" class="hide">
+    <div class="row">
+      <select id="dsel"></select>
+      <select id="dSessionFilter" style="flex:0 0 34%">
+        <option value="*">All Sessions</option>
+        <option value="OPEN">OPEN Only</option>
+        <option value="CLOSE">CLOSE Only</option>
+      </select>
+    </div>
+    <div class="row admin-only" id="dUserRow">
+      <select id="dUserFilter" aria-label="User Scope"></select>
+      <button type="button" id="dcopy" class="btn-copy" style="flex:0 0 auto">Copy Report</button>
+    </div>
+    <div class="row" id="dcopyNonAdminRow">
+      <button type="button" id="dcopyUser" class="btn-copy">Copy Report</button>
+    </div>
+    <div id="dSlipVerticalList" class="slip-vertical-list"></div>
+    <div id="dout"></div>
+    <textarea id="dtxt" readonly rows="8" style="width:100%;font-family:'JetBrains Mono',monospace;font-size:13px;margin-top:8px"></textarea>
+    <div class="row admin-only">
+      <button type="button" id="dreset" class="danger">Delete Heading Data</button>
+    </div>
+  </div>
+
+  <!-- TAB 6: LOADING (ADMIN ONLY) -->
+  <div id="loadingTab" class="hide admin-only">
+    <table class="load-filter-table">
+      <tr>
+        <td class="load-filter-label">Select Game:</td>
+        <td><select id="lGameSel"></select></td>
+      </tr>
+      <tr>
+        <td class="load-filter-label">Open / Close:</td>
+        <td>
+          <select id="lSessionSel">
+            <option value="OPEN">Open</option>
+            <option value="CLOSE">Close</option>
+            <option value="*">All (Open + Close)</option>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td class="load-filter-label">User Loading:</td>
+        <td><select id="lUserSel"></select></td>
+      </tr>
+    </table>
+    <div class="stat-group" id="adminCopyLimitBox">
+      <div class="stat-head"><b>One-Click Copy (All 5 Parts)</b><span style="font-size:12px;color:#fde047">LIMIT</span></div>
+      <div class="limit-grid">
+        <div class="limit-field">
+          <label for="limSingle">Single LIMIT</label>
+          <input id="limSingle" type="number" min="0" step="any" placeholder="0 (No limit)">
+        </div>
+        <div class="limit-field">
+          <label for="limDouble">Double LIMIT</label>
+          <input id="limDouble" type="number" min="0" step="any" placeholder="0 (No limit)">
+        </div>
+        <div class="limit-field">
+          <label for="limTriple">Triple LIMIT</label>
+          <input id="limTriple" type="number" min="0" step="any" placeholder="0 (No limit)">
+        </div>
+        <div class="limit-field">
+          <label for="limJk">JK LIMIT</label>
+          <input id="limJk" type="number" min="0" step="any" placeholder="0 (No limit)">
+        </div>
+        <div class="limit-field" style="grid-column:1/-1">
+          <label for="limSangam">SANGAM LIMIT</label>
+          <input id="limSangam" type="number" min="0" step="any" placeholder="0 (No limit)">
+        </div>
+      </div>
+      <div class="row" style="margin:8px 0 2px">
+        <button type="button" id="lOneClickCopyBtn" class="btn-copy">Copy All 5 Parts</button>
+      </div>
+      <div class="bt-status">Includes Game + Session header; subtracts each part's LIMIT for copy only.</div>
+    </div>
+    <div class="mode-switch-row">
+      <button type="button" class="mode-chip-btn active" data-lmode="SINGLE">Single (1-0)</button>
+      <button type="button" class="mode-chip-btn" data-lmode="DOUBLE">Double (00-99)</button>
+      <button type="button" class="mode-chip-btn" data-lmode="TRIPLE">Triple (000-999)</button>
+    </div>
+    <div class="chart-card">
+      <div id="lModeTitle" style="font-family:'Outfit',sans-serif;font-weight:800;font-size:14px;color:#c4b5fd;margin-bottom:4px">
+        Single Digits Chart (₹)
+      </div>
+      <div id="lSingleChartWrap">
+        <div class="chart-columns" id="lChartBars"></div>
+        <div class="chart-digits" id="lChartDigits"></div>
+      </div>
+      <div id="lMultiViewWrap" class="hide">
+        <div class="row" style="margin:6px 0">
+          <input id="lNumSearch" placeholder="Search loaded number...">
+          <select id="lSortSel" style="flex:0 0 44%">
+            <option value="HIGH_RS">Highest ₹ First</option>
+            <option value="NUM_ASC">Number Low→High</option>
+          </select>
+        </div>
+        <div id="lMultiTiles" class="load-rank-grid"></div>
+      </div>
+      <div id="lSelectedDetail" class="bt-status" style="text-align:center;color:#fde047;margin-top:8px">
+        Tap any number/bar to see direct load + linked JK &amp; SANGAM exposure.
+      </div>
+      <div class="gold-pill-banner" id="lRefreshBanner">
+        <span>&#10004;</span>
+        <span id="lRefreshText">Kindly check after every 5 min.. (Tap to Refresh)</span>
+      </div>
+    </div>
+    <div class="grand-box">
+      <span id="lTotalLabel">Total Loading</span>
+      <span id="lGrandTotal">0₹</span>
+    </div>
+    <div id="lLinkedExposureBox"></div>
+    <div id="lUserwiseBreakdown"></div>
+  </div>
+
+  <!-- TAB 7: HISAB (ADMIN ONLY) -->
+  <div id="hisabTab" class="hide admin-only">
+    <div class="stat-group">
+      <div class="stat-head">
+        <b>Hisab Day (1:00 AM Cutoff)</b>
+        <span id="hisabDayBadge">-</span>
+      </div>
+      <div class="row">
+        <select id="hisabDaySel" aria-label="Select Hisab Day"></select>
+        <button type="button" id="hisabRefreshBtn" class="btn-new-head" style="flex:0 0 auto">Recalculate</button>
+      </div>
+      <div class="session-hint">Monday Hisab runs from Monday 1:00 AM through Tuesday 12:59 AM (12:50 AM updates stay on Monday).</div>
+    </div>
+
+    <div class="stat-group">
+      <div class="stat-head"><b>Saved Result Updates</b><span id="hisabResultCount">0</span></div>
+      <div id="hisabResultsList"></div>
+    </div>
+
+    <div class="stat-group" id="adminFinalSlipCard">
+      <div class="stat-head"><b>Admin Final Hisab Slip</b><span>ADMIN</span></div>
+      <div id="adminFinalSlipPre" class="hisab-slip-pre"></div>
+      <div class="row" style="margin-bottom:2px">
+        <button type="button" id="copyFinalHisabBtn" class="btn-copy">Copy Final Slip</button>
+        <button type="button" id="shareFinalHisabBtn" class="btn-share">Share</button>
+      </div>
+    </div>
+
+    <div class="stat-group">
+      <div class="stat-head"><b>All Users Hisab Breakdown</b><span id="hisabUserCount">0</span></div>
+      <div id="hisabUserBreakdown"></div>
+    </div>
+  </div>
+
+  <!-- TAB 5: VERIFY RESULT -->
+  <div id="verifyTab" class="hide">
+    <div class="stat-group">
+      <div class="stat-head">
+        <b id="vPanelTitle">Verify Result</b>
+        <span id="vDayBadge" style="font-size:12px;color:#6ee7b7">1:00 AM DAY</span>
+      </div>
+      <div class="row">
+        <select id="vHead"></select>
+        <select id="vUserScope" class="admin-only" style="flex:0 0 44%"></select>
+      </div>
+      <div class="admin-only" id="adminResultPublishBox">
+        <div class="row">
+          <input id="vResultInput" placeholder="Half: 157-3  |  Full: 157-32-480">
+          <button type="button" id="vSaveBtn" class="btn-new-head" style="flex:0 0 auto;padding:10px 12px;font-size:12px">Update Result</button>
+        </div>
+        <div id="vSaveMsg" style="font-size:12.5px;color:#6ee7b7;margin-top:4px"></div>
+      </div>
+      <div class="hisab-line-item" style="margin-top:8px">
+        <span><b>Published Result:</b></span>
+        <span id="vPublishedResultText" class="tag">Not Set</span>
+      </div>
+      <div class="row" style="margin-bottom:2px">
+        <button type="button" id="vRunBtn" class="btn-add-entry" style="padding:11px 14px;font-size:13px">Verify My Entries</button>
+      </div>
+    </div>
+    <div id="vOutput"></div>
+  </div>
+
+  <!-- TAB 4: SYNC / USERS (ADMIN ONLY) -->
+  <div id="sync" class="hide admin-only">
+    <div class="stat-group" id="adminCredsBox">
+      <div class="stat-head"><b>Change Admin Login ID &amp; Password</b><span style="font-size:12px;color:#fde68a">BOSS</span></div>
+      <div class="row">
+        <input id="admNewId" placeholder="New Admin ID (e.g. boss)">
+        <input id="admNewPass" type="password" placeholder="New Password">
+        <button type="button" id="saveAdminCredsBtn" class="btn-new-head" style="flex:0 0 auto">Save Admin</button>
+      </div>
+      <div id="admCredsMsg" style="font-size:12.5px;color:var(--ok);margin-top:4px"></div>
+    </div>
+
+    <div class="stat-group" id="userMgmtBox">
+      <div class="stat-head"><b>Users, Status &amp; Multipliers</b><span id="userCountBadge">0</span></div>
+      <div class="row">
+        <input id="newUid" placeholder="New User ID (e.g. jack)">
+        <input id="newUpwd" placeholder="Password">
+        <button type="button" id="createUserBtn" class="btn-new-head" style="flex:0 0 auto">Add User</button>
+      </div>
+      <div id="userMgmtMsg" style="font-size:12.5px;color:var(--ok);margin-top:4px"></div>
+      <div id="userListBox"></div>
+    </div>
+
+    <div class="stat-group">
+      <div class="stat-head"><b>Firebase Realtime Database</b><span id="fbStatusText" style="font-size:12px">Not set</span></div>
+      <div class="row">
+        <input id="fbUrlInput" placeholder="https://your-project-default-rtdb.firebaseio.com">
+      </div>
+      <div class="row">
+        <button type="button" id="saveFbBtn" class="btn-primary">Save &amp; Connect Firebase</button>
+        <button type="button" id="pullFbBtn" class="btn-bt">Pull Cloud Data</button>
+      </div>
+      <div id="syncMsg" style="font-size:13px;color:var(--mut);margin-top:4px"></div>
+    </div>
+
+    <div class="stat-group">
+      <div class="stat-head"><b>Backup &amp; Transfer (JSON / CSV)</b></div>
+      <div class="row">
+        <button type="button" id="expJson" class="btn-primary">Export Backup (.json)</button>
+        <button type="button" id="expCsv" class="btn-add-entry" style="font-size:13px;padding:11px 12px">Export Excel (.csv)</button>
+      </div>
+      <div class="row">
+        <input type="file" id="impFile" accept=".json" style="padding:7px">
+        <button type="button" id="impBtn" class="btn-new-head" style="flex:0 0 auto">Restore</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB 8: MARKET (ADMIN ONLY) -->
+  <div id="marketTab" class="hide admin-only">
+    <div class="stat-group">
+      <div class="stat-head"><b>Add / Edit Market Heading</b><span style="font-size:12px;color:#6ee7b7">GLOBAL</span></div>
+      <div class="row">
+        <input id="mktNewHeadingName" placeholder="Heading Name (e.g. SHRIDEVI)">
+        <button type="button" id="mktAddHeadingBtn" class="btn-new-head" style="flex:0 0 auto">Add Heading</button>
+      </div>
+      <div id="mktMsg" style="font-size:12.5px;color:#6ee7b7;margin-top:4px"></div>
+    </div>
+    <div id="mktHeadingsList"></div>
+  </div>
+</div>
+
+<div id="slipwrap" class="site-shell hide">
+  <div id="slip"></div>
+  <div class="bt-box no">
+    <div style="font-family:'Outfit',sans-serif;font-size:12px;font-weight:800;letter-spacing:0.06em;color:#67e8f9;margin-bottom:5px">
+      CONTINUOUS DIRECT BLUETOOTH PRINT (SEZNIK 58mm)
+    </div>
+    <div class="row" style="margin:4px 0">
+      <button type="button" id="btPrint" class="btn-bt">Bluetooth Print (GS v 0)</button>
+    </div>
+    <div class="bt-status" id="btStatus">Ready. Streams complete slip continuously without mid-slip pauses.</div>
+  </div>
+  <div class="row no">
+    <button type="button" id="copy" class="btn-copy">Copy Slip</button>
+    <button type="button" id="shareBtn" class="btn-share">Share</button>
+    <button type="button" id="print" class="btn-print">Browser Print</button>
+  </div>
+  <div class="row no">
+    <button type="button" id="sdel" class="danger">Delete Slip</button>
+    <button type="button" id="back" class="btn-clear">Close / New Slip</button>
+  </div>
+</div>
+
+<script>
+(function() {
+  "use strict";
+  var DEFAULT_FIREBASE_URL = "";
+  var WARN = "चिट्टी तपासून घेणे नंतर तक्रार चालणार नाही.";
+  var DEFAULT_HEADS = [
+    "SRIDEVI", "PADMAVATI", "TIME BAZAR", "SOLAPUR DAY", "MILAN DAY",
+    "RAJDHANI DAY", "KALYAN", "SRIDEVI NIGHT", "PADMAVTI NIGHT",
+    "SOLAPUR NIGHT", "MILAN NIGHT", "KALYAN NIGHT", "RAJDHANI NIGHT", "MAIN BAZAR"
+  ];
+  var DEFAULT_MULTIPLIERS = {
+    single: 9, jodi: 90, sp: 150, dp: 300, tp: 500, jk: 1000, sangam: 10000
+  };
+  var DEFAULT_USERS = [
+    { id: "admin", pass: "1234", role: "admin", status: "active", multipliers: Object.assign({}, DEFAULT_MULTIPLIERS) }
+  ];
+  var CATS = ["Single digits", "Jodi", "PAANA", "JK", "SANGAM"];
+  var SHORT_CATS = ["1-Digit", "Jodi", "PAANA", "JK", "SANGAM"];
+  var DIGIT_ORDER = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"];
+  var WEEKDAYS = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+  var VALUE_SIGNS = /[*#₹&@$€¢£=:"';,.]/;
+  var PAIR_SEP = /[xX×\-]/;
+  var memStore = {};
+  var $ = function(id) { return document.getElementById(id); };
+
+  function showLoginStatus(msg, isErr) {
+    var el = $("loginErr");
+    if (!el) return;
+    el.textContent = msg;
+    el.style.color = isErr ? "var(--err)" : "#6ee7b7";
+    el.classList.remove("hide");
+  }
+  function ld(k, d) {
+    try {
+      var v = window.localStorage.getItem(k);
+      if (v !== null) return JSON.parse(v);
+    } catch (e) {}
+    return Object.prototype.hasOwnProperty.call(memStore, k) ? memStore[k] : d;
+  }
+  function sv(k, v) {
+    memStore[k] = v;
+    try { window.localStorage.setItem(k, JSON.stringify(v)); } catch (e) {}
+  }
+  function esc(s) {
+    return String(s).replace(/[&<>"]/g, function(c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c];
+    });
+  }
+  function round2(n) { return Math.round((Number(n) || 0) * 100) / 100; }
+  function normalizeMultipliers(m) {
+    var src = (m && typeof m === "object") ? m : {};
+    function pick(key, fallback) {
+      var n = parseFloat(src[key]);
+      return (isFinite(n) && n >= 0) ? round2(n) : fallback;
+    }
+    return {
+      single: pick("single", DEFAULT_MULTIPLIERS.single),
+      jodi: pick("jodi", DEFAULT_MULTIPLIERS.jodi),
+      sp: pick("sp", DEFAULT_MULTIPLIERS.sp),
+      dp: pick("dp", DEFAULT_MULTIPLIERS.dp),
+      tp: pick("tp", DEFAULT_MULTIPLIERS.tp),
+      jk: pick("jk", DEFAULT_MULTIPLIERS.jk),
+      sangam: pick("sangam", DEFAULT_MULTIPLIERS.sangam)
+    };
+  }
+  function normalizeUserObj(u) {
+    var st = String(u.status || "active").toLowerCase();
+    if (st !== "active" && st !== "paused" && st !== "blocked") st = "active";
+    if (String(u.role || "").toLowerCase() === "admin") st = "active";
+    return {
+      id: String(u.id || "").trim(),
+      pass: String(u.pass || "").trim(),
+      role: String(u.role || "user").toLowerCase() === "admin" ? "admin" : "user",
+      status: st,
+      multipliers: normalizeMultipliers(u.multipliers)
+    };
+  }
+  function normalizeMarketConfig(cfg, headList) {
+    var src = (cfg && typeof cfg === "object") ? cfg : {};
+    var out = {};
+    (headList || []).forEach(function(hName) {
+      var existing = src[hName] || {};
+      var sessMap = existing.sessions && typeof existing.sessions === "object" ? existing.sessions : {};
+      var openCfg = sessMap.OPEN || {};
+      var closeCfg = sessMap.CLOSE || {};
+      out[hName] = {
+        active: existing.active !== false,
+        cutoff: typeof existing.cutoff === "string" ? existing.cutoff : "",
+        sessions: {
+          OPEN: { active: openCfg.active !== false, cutoff: typeof openCfg.cutoff === "string" ? openCfg.cutoff : "" },
+          CLOSE: { active: closeCfg.active !== false, cutoff: typeof closeCfg.cutoff === "string" ? closeCfg.cutoff : "" }
+        }
+      };
+    });
+    return out;
+  }
+  function fmtRs(val) {
+    var n = round2(val);
+    if (!n) return "0₹";
+    var abs = Math.abs(n);
+    if (abs >= 100000) { var l = round2(n / 100000); return (Number.isInteger(l) ? l : l.toFixed(1)) + "L₹"; }
+    if (abs >= 1000) { var k = round2(n / 1000); return (Number.isInteger(k) ? k : k.toFixed(1)) + "k₹"; }
+    return n + "₹";
+  }
+  function stamp(t) {
+    var d = new Date(t);
+    return d.toLocaleDateString() + " " + d.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+  }
+  function getHisabDayInfo(timestampMs) {
+    var shifted = new Date((Number(timestampMs) || Date.now()) - 3600000);
+    var y = shifted.getFullYear(), m = shifted.getMonth() + 1, day = shifted.getDate();
+    var pad2 = function(x) { return x < 10 ? "0" + x : String(x); };
+    var yy = String(y).slice(-2);
+    return {
+      key: y + "-" + pad2(m) + "-" + pad2(day),
+      weekday: WEEKDAYS[shifted.getDay()],
+      label: WEEKDAYS[shifted.getDay()] + " " + pad2(day) + "/" + pad2(m) + "/" + yy,
+      ts: shifted.getTime()
+    };
+  }
+  function isAdmin() { return currentUser && currentUser.role === "admin"; }
+  function refreshCurrentUserRecord() {
+    if (!currentUser) return null;
+    if (currentUser.role === "admin") {
+      return { id: currentUser.id, pass: currentUser.pass, role: "admin", status: "active", multipliers: normalizeMultipliers(currentUser.multipliers) };
+    }
+    var found = users.find(function(u) { return u.id.toLowerCase() === currentUser.id.toLowerCase(); });
+    return found ? normalizeUserObj(found) : null;
+  }
+  function getUserCodeMap(userList) {
+    var usedCodes = {}, codeMap = {};
+    (userList || []).forEach(function(u) {
+      var raw = String(u.id || "u").toLowerCase().replace(/[^a-z0-9]/g, "") || "u";
+      var c1 = raw.charAt(0);
+      if (!usedCodes[c1]) { usedCodes[c1] = u.id; codeMap[u.id] = c1; return; }
+      var c2 = raw.length >= 2 ? raw.slice(0, 2) : (c1 + "2");
+      if (!usedCodes[c2]) { usedCodes[c2] = u.id; codeMap[u.id] = c2; return; }
+      var n = 2;
+      while (usedCodes[c2 + n]) n++;
+      usedCodes[c2 + n] = u.id; codeMap[u.id] = c2 + n;
+    });
+    return codeMap;
+  }
+  function timeStrToMinutes(hhmm) {
+    if (!hhmm || typeof hhmm !== "string") return null;
+    var m = hhmm.match(/^(\d{1,2}):(\d{2})$/);
+    if (!m) return null;
+    var hh = Number(m[1]), mm = Number(m[2]);
+    if (hh < 0 || hh > 23 || mm < 0 || mm > 59) return null;
+    return hh * 60 + mm;
+  }
+  function checkHeadingSessionAvailability(headName, sessName) {
+    if (isAdmin()) return { allowed: true, reason: "Admin bypasses cut-off times" };
+    var cfg = marketConfig[headName];
+    if (!cfg) return { allowed: true, reason: "" };
+    if (cfg.active === false) return { allowed: false, reason: headName + " is currently unavailable for slip generation." };
+    var now = new Date(), nowMins = now.getHours() * 60 + now.getMinutes();
+    var headCutMins = timeStrToMinutes(cfg.cutoff);
+    if (headCutMins !== null && nowMins >= headCutMins) return { allowed: false, reason: headName + " closed at " + cfg.cutoff + "." };
+    var sCfg = (cfg.sessions && cfg.sessions[sessName]) || { active: true, cutoff: "" };
+    if (sCfg.active === false) return { allowed: false, reason: headName + " " + sessName + " session is unavailable." };
+    var sessCutMins = timeStrToMinutes(sCfg.cutoff);
+    if (sessCutMins !== null && nowMins >= sessCutMins) return { allowed: false, reason: headName + " " + sessName + " closed at " + sCfg.cutoff + "." };
+    return {
+      allowed: true,
+      reason: sCfg.cutoff ? (sessName + " cut-off: " + sCfg.cutoff) : (cfg.cutoff ? ("Heading cut-off: " + cfg.cutoff) : "Open for slips")
+    };
+  }
+
+  var slipCounter = ld("jio_play_slip_counter_v29", 101);
+  if (typeof slipCounter !== "number" || slipCounter < 101) slipCounter = 101;
+  var heads = ld("jio_play_heads_v24", DEFAULT_HEADS.slice());
+  if (!Array.isArray(heads) || !heads.length) heads = DEFAULT_HEADS.slice();
+  var hist = ld("jio_play_hist_v24", []);
+  if (!Array.isArray(hist)) hist = [];
+  var rawUsers = ld("jio_play_users_v24", DEFAULT_USERS.slice());
+  if (!Array.isArray(rawUsers) || !rawUsers.length) rawUsers = DEFAULT_USERS.slice();
+  var users = rawUsers.map(normalizeUserObj).filter(function(u) { return !!u.id; });
+  if (!users.some(function(u) { return u.role === "admin"; })) users.unshift(normalizeUserObj(DEFAULT_USERS[0]));
+  sv("jio_play_users_v24", users);
+  var savedResults = ld("jio_play_results_v38", {});
+  if (!savedResults || typeof savedResults !== "object") savedResults = {};
+  var marketConfig = normalizeMarketConfig(ld("jio_play_market_v39", {}), heads);
+  sv("jio_play_market_v39", marketConfig);
+  var currentUser = null;
+  var hi = ld("jio_play_hi_v24", 0);
+  if (typeof hi !== "number" || hi < 0 || hi >= heads.length) hi = 0;
+  var sessionMode = ld("jio_play_session_mode_v24", "OPEN");
+  if (sessionMode !== "OPEN" && sessionMode !== "CLOSE") sessionMode = "OPEN";
+  var rows = ld("jio_play_draft_v24", []);
+  if (!Array.isArray(rows)) rows = [];
+  var fbUrl = ld("jio_play_fb_url_v24", DEFAULT_FIREBASE_URL) || "";
+  var curSlip = null, armTimers = {}, activeLoadMode = "SINGLE", selectedDataSlipId = "*", lastLoadSnapshot = null, selectedHisabDayKey = "";
+
+  function nextGlobalSlipId(userId) {
+    var allKnownUsers = users.slice();
+    hist.forEach(function(s) { if (s.user && !allKnownUsers.some(function(u) { return u.id === s.user; })) allKnownUsers.push({ id: s.user, role: "user" }); });
+    var codeMap = getUserCodeMap(allKnownUsers);
+    var uid = userId || (currentUser ? currentUser.id : "admin");
+    var code = codeMap[uid] || String(uid).toLowerCase().charAt(0) || "u";
+    var idStr = String(slipCounter) + code;
+    slipCounter += 1; sv("jio_play_slip_counter_v29", slipCounter);
+    return idStr;
+  }
+  function ensureSlipId(slip) { if (!slip.slipId) slip.slipId = nextGlobalSlipId(slip.user || "admin"); return slip.slipId; }
+  hist.forEach(function(s) { ensureSlipId(s); });
+
+  function copyTextReliable(text, btn, defaultLabel) {
+    var done = function(ok) {
+      if (!btn) return;
+      btn.textContent = ok ? "Copied ✓" : "Copy Failed";
+      setTimeout(function() { btn.textContent = defaultLabel; }, 1600);
+    };
+    if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(text).then(function() { done(true); }).catch(function() { done(false); });
+    else {
+      try {
+        var ta = document.createElement("textarea"); ta.value = text; document.body.appendChild(ta); ta.select();
+        document.execCommand("copy"); document.body.removeChild(ta); done(true);
+      } catch (e) { done(false); }
+    }
+  }
+  function evalMath(expr) {
+    var s = String(expr).replace(/\s+/g, "");
+    if (!s || !/^[0-9+\-*/().]+$/.test(s)) return NaN;
+    var tokens = s.match(/(\d+\.?\d*|\.\d+|[+\-*/()])/g);
+    if (!tokens || tokens.join("") !== s) return NaN;
+    var pos = 0;
+    function parseExpr() { var val = parseTerm(); while (pos < tokens.length && (tokens[pos] === "+" || tokens[pos] === "-")) { var op = tokens[pos++]; var right = parseTerm(); val = op === "+" ? val + right : val - right; } return val; }
+    function parseTerm() { var val = parseFactor(); while (pos < tokens.length && (tokens[pos] === "*" || tokens[pos] === "/")) { var op = tokens[pos++]; var right = parseFactor(); if (op === "/" && right === 0) return NaN; val = op === "*" ? val * right : val / right; } return val; }
+    function parseFactor() { if (tokens[pos] === "+") { pos++; return parseFactor(); } if (tokens[pos] === "-") { pos++; return -parseFactor(); } if (tokens[pos] === "(") { pos++; var val = parseExpr(); if (tokens[pos] !== ")") return NaN; pos++; return val; } var num = parseFloat(tokens[pos++]); return isFinite(num) ? num : NaN; }
+    var res = parseExpr();
+    return (pos !== tokens.length || !isFinite(res)) ? NaN : round2(res);
+  }
+  function digitRank(ch) { return ch === "0" ? 10 : Number(ch); }
+  function isNonDecrementedTriple(str3) {
+    if (!/^\d{3}$/.test(str3)) return false;
+    return digitRank(str3.charAt(0)) <= digitRank(str3.charAt(1)) && digitRank(str3.charAt(1)) <= digitRank(str3.charAt(2));
+  }
+  function tripleSubType(str3) {
+    var a = str3.charAt(0), b = str3.charAt(1), c = str3.charAt(2);
+    if (a === b && b === c) return "TP";
+    if (a === b || b === c || a === c) return "DP";
+    return "SP";
+  }
+  function tripleTotalDigit(str3) { return String((Number(str3.charAt(0)) + Number(str3.charAt(1)) + Number(str3.charAt(2))) % 10); }
+  function cutDigit(ch) { return { "1": "6", "6": "1", "2": "7", "7": "2", "3": "8", "8": "3", "4": "9", "9": "4", "5": "0", "0": "5" }[ch]; }
+  function compareTripleAsc(a, b) {
+    for (var i = 0; i < 3; i++) { var ra = digitRank(a.charAt(i)), rb = digitRank(b.charAt(i)); if (ra !== rb) return ra - rb; }
+    return 0;
+  }
+  function getFamilyMembers(str3) {
+    if (!isNonDecrementedTriple(str3)) return [];
+    var seen = {}, list = [];
+    for (var mask = 0; mask < 8; mask++) {
+      var chars = [0, 1, 2].map(function(idx) { var ch = str3.charAt(idx); return (mask & (1 << idx)) ? cutDigit(ch) : ch; });
+      var sorted = chars.slice().sort(function(x, y) { return digitRank(x) - digitRank(y); }).join("");
+      if (!seen[sorted]) { seen[sorted] = true; list.push(sorted); }
+    }
+    return list.sort(compareTripleAsc);
+  }
+  var ALL_VALID_TRIPLES = (function() {
+    var out = [];
+    for (var n = 0; n < 1000; n++) { var s = String(n).padStart(3, "0"); if (isNonDecrementedTriple(s)) out.push(s); }
+    return out.sort(compareTripleAsc);
+  })();
+  function expandTotalGroupSpec(rawNum) {
+    var s = String(rawNum).trim().toLowerCase().replace(/\s+/g, "").replace(/=/g, "");
+    var digitsMatch = s.match(/\d/g), withoutDigits = s.replace(/\d/g, "");
+    if (!digitsMatch || digitsMatch.length !== 1 || !withoutDigits || !/^(sp|dp|tp)+$/.test(withoutDigits)) return null;
+    var types = withoutDigits.match(/(sp|dp|tp)/g), typeSet = {};
+    types.forEach(function(t) { typeSet[t.toUpperCase()] = true; });
+    return ALL_VALID_TRIPLES.filter(function(t3) { return tripleTotalDigit(t3) === digitsMatch[0] && !!typeSet[tripleSubType(t3)]; });
+  }
+  function expandCycleSpec(rawNum, mode) {
+    var s = String(rawNum).trim();
+    if (/\/{6,}/.test(s)) return { ok: false, error: '"' + s + '" cycle slashes max is 5' };
+    var m = s.match(/^(\d+)\s*\/{1,5}\s*(\d+)$/);
+    if (!m) return null;
+    if (mode === "CLOSE") return { ok: false, error: '"' + s + '" not allowed in CLOSE' };
+    var leftChars = m[1].split(""), rightChars = m[2].split(""), items = [];
+    for (var i = 0; i < leftChars.length; i++) for (var j = 0; j < rightChars.length; j++) items.push({ norm: leftChars[i] + rightChars[j], catIndex: 1, catName: CATS[1] });
+    return { ok: true, items: items };
+  }
+  function expandEntryTokens(rawNum, mode) {
+    var clean = String(rawNum).trim();
+    if (!clean) return { ok: false, error: "Empty number" };
+    var cyc = expandCycleSpec(clean, mode);
+    if (cyc !== null) return cyc;
+    var fmMatch = clean.match(/^(\d{3})\s*(?:fm|family)$/i);
+    if (fmMatch) {
+      if (!isNonDecrementedTriple(fmMatch[1])) return { ok: false, error: '"' + fmMatch[1] + '" must be non-decremented PAANA' };
+      return { ok: true, items: getFamilyMembers(fmMatch[1]).map(function(m) { return { norm: m, catIndex: 2, catName: CATS[2] }; }) };
+    }
+    var grpMatches = expandTotalGroupSpec(clean);
+    if (grpMatches) return { ok: true, items: grpMatches.map(function(m) { return { norm: m, catIndex: 2, catName: CATS[2] }; }) };
+    var singleCls = classifyNumber(clean, mode);
+    if (!singleCls.ok) return { ok: false, error: singleCls.error };
+    return { ok: true, items: [{ norm: singleCls.norm, catIndex: singleCls.catIndex, catName: singleCls.catName }] };
+  }
+  function classifyNumber(rawNum, mode) {
+    var clean = String(rawNum).trim();
+    if (!clean) return { ok: false, error: "Empty number" };
+    var pairMatch = clean.match(/^(\d+)\s*[xX×\-]\s*(\d+)$/);
+    if (pairMatch) {
+      var a = pairMatch[1], b = pairMatch[2], sepChar = clean.match(/[xX×\-]/)[0];
+      var normSep = /[xX×]/.test(sepChar) ? "x" : "-", catIdx = -1;
+      if ((a.length === 1 && b.length === 3) || (a.length === 3 && b.length === 1)) catIdx = 3;
+      else if (a.length === 3 && b.length === 3) catIdx = 4;
+      else return { ok: false, error: '"' + clean + '" invalid pair' };
+      if (mode === "CLOSE") return { ok: false, error: '"' + clean + '" not allowed in CLOSE' };
+      return { ok: true, norm: a + normSep + b, catIndex: catIdx, catName: CATS[catIdx] };
+    }
+    if (/^\d+$/.test(clean)) {
+      if (clean.length === 1) return { ok: true, norm: clean, catIndex: 0, catName: CATS[0] };
+      if (clean.length === 2) { if (mode === "CLOSE") return { ok: false, error: '"' + clean + '" not allowed in CLOSE' }; return { ok: true, norm: clean, catIndex: 1, catName: CATS[1] }; }
+      if (clean.length === 3) { if (!isNonDecrementedTriple(clean)) return { ok: false, error: '"' + clean + '" must be non-decremented PAANA' }; return { ok: true, norm: clean, catIndex: 2, catName: CATS[2] }; }
+    }
+    return { ok: false, error: '"' + clean + '" invalid number' };
+  }
+
+  function openDrawer() { $("drawerBackdrop").classList.remove("hide"); $("navDrawer").classList.remove("hide"); }
+  function closeDrawer() { $("drawerBackdrop").classList.add("hide"); $("navDrawer").classList.add("hide"); }
+  function saveDraft() { sv("jio_play_draft_v24", rows); }
+  function resetArm(btn, label) { if (!btn) return; btn.dataset.arm = ""; btn.textContent = label; if (armTimers[btn.id]) { clearTimeout(armTimers[btn.id]); delete armTimers[btn.id]; } }
+  function confirmTap(btn, idleLabel, confirmLabel, action) {
+    if (btn.dataset.arm === "1") { resetArm(btn, idleLabel); action(); return; }
+    btn.dataset.arm = "1"; btn.textContent = confirmLabel;
+    if (armTimers[btn.id]) clearTimeout(armTimers[btn.id]);
+    armTimers[btn.id] = setTimeout(function() { resetArm(btn, idleLabel); }, 2500);
+  }
+
+  function getFbBase() { return (fbUrl || "").trim().replace(/\/+$/, ""); }
+  function ensureSlipKey(slip) { if (!slip.cloudKey) slip.cloudKey = "slip_" + slip.t + "_" + Math.random().toString(36).slice(2, 8); return slip.cloudKey; }
+  function updateCloudBadge(label, ok) {
+    if ($("cloudBadge")) { $("cloudBadge").textContent = label; $("cloudBadge").style.color = ok ? "#6ee7b7" : "var(--mut)"; }
+    if ($("fbStatusText")) { $("fbStatusText").textContent = label; $("fbStatusText").style.color = ok ? "#6ee7b7" : "var(--mut)"; }
+  }
+  async function pushMetaToFirebase() {
+    var base = getFbBase(); if (!base) return;
+    try {
+      await fetch(base + "/jio_play_v24/meta.json", {
+        method: "PUT", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ heads: heads, users: users, savedResults: savedResults, marketConfig: marketConfig, slipCounter: slipCounter, updatedAt: Date.now() })
+      });
+      updateCloudBadge("Cloud Synced", true);
+    } catch (e) { updateCloudBadge("Cloud Offline", false); }
+  }
+  async function pushSlipToFirebase(slip) {
+    var base = getFbBase(); if (!base || !slip) return;
+    try {
+      await fetch(base + "/jio_play_v24/slips/" + encodeURIComponent(ensureSlipKey(slip)) + ".json", {
+        method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify(slip)
+      });
+      updateCloudBadge("Cloud Synced", true);
+    } catch (e) { updateCloudBadge("Cloud Offline", false); }
+  }
+  async function deleteSlipFromFirebase(slip) {
+    var base = getFbBase(); if (!base || !slip || !slip.cloudKey) return;
+    try { await fetch(base + "/jio_play_v24/slips/" + encodeURIComponent(slip.cloudKey) + ".json", { method: "DELETE" }); } catch (e) {}
+  }
+  async function pullStateFromFirebase(silent) {
+    var base = getFbBase(); if (!base) { updateCloudBadge("Local Only", false); return; }
+    try {
+      var res = await fetch(base + "/jio_play_v24.json");
+      if (!res.ok) throw new Error("HTTP " + res.status);
+      var data = await res.json();
+      if (data && typeof data === "object") {
+        var meta = data.meta || data;
+        if (typeof meta.slipCounter === "number" && meta.slipCounter > slipCounter) { slipCounter = meta.slipCounter; sv("jio_play_slip_counter_v29", slipCounter); }
+        if (Array.isArray(meta.heads) && meta.heads.length) { heads = meta.heads; sv("jio_play_heads_v24", heads); if (hi >= heads.length) hi = 0; }
+        if (Array.isArray(meta.users) && meta.users.length) {
+          users = meta.users.map(normalizeUserObj).filter(function(u) { return !!u.id; });
+          if (!users.some(function(u) { return u.role === "admin"; })) users.unshift(normalizeUserObj(DEFAULT_USERS[0]));
+          sv("jio_play_users_v24", users); renderUserList();
+        }
+        if (meta.savedResults && typeof meta.savedResults === "object") { savedResults = meta.savedResults; sv("jio_play_results_v38", savedResults); }
+        if (meta.marketConfig && typeof meta.marketConfig === "object") { marketConfig = normalizeMarketConfig(meta.marketConfig, heads); sv("jio_play_market_v39", marketConfig); }
+        fillHeads();
+        var cloudSlips = [];
+        if (data.slips && typeof data.slips === "object") {
+          Object.keys(data.slips).forEach(function(k) { var s = data.slips[k]; if (s && typeof s === "object") { s.cloudKey = s.cloudKey || k; ensureSlipId(s); cloudSlips.push(s); } });
+        }
+        if (cloudSlips.length) { cloudSlips.sort(function(a, b) { return (b.t || 0) - (a.t || 0); }); hist = cloudSlips; sv("jio_play_hist_v24", hist); }
+        if (currentUser && !isAdmin()) {
+          var fresh = refreshCurrentUserRecord();
+          if (!fresh || fresh.status === "blocked") { showLoginStatus("Your account is blocked by Admin.", true); showLogin(); return; }
+          currentUser = fresh;
+        }
+        applyRolePermissions(); updateSessionUI(); renderDesk(); renderHistory(); renderDataTab(); renderLoadingTab(); renderHisabTab(); renderMarketTab();
+        updateCloudBadge("Cloud Live", true);
+      }
+    } catch (e) { updateCloudBadge("Cloud Error", false); }
+  }
+
+  function applyRolePermissions() {
+    var admin = isAdmin();
+    document.querySelectorAll(".admin-only").forEach(function(el) { el.classList.toggle("hide", !admin); });
+    if ($("vPanelTitle")) $("vPanelTitle").textContent = admin ? "Publish & Verify Result" : "Verify Result (Read-Only)";
+    if ($("vRunBtn")) $("vRunBtn").textContent = admin ? "Verify Entries" : "Verify My Entries";
+    var rec = refreshCurrentUserRecord();
+    var st = admin ? "active" : (rec ? rec.status : "active");
+    $("activeUserLabel").textContent = currentUser ? currentUser.id : "GUEST";
+    var roleBadge = $("activeRoleBadge");
+    roleBadge.textContent = admin ? "ADMIN" : "USER";
+    roleBadge.className = admin ? "role-chip admin" : "role-chip";
+    var statusBadge = $("activeStatusBadge");
+    statusBadge.textContent = st.toUpperCase();
+    statusBadge.className = "status-chip " + st;
+    var isPaused = !admin && st === "paused";
+    if ($("userSlipLockBanner")) $("userSlipLockBanner").classList.toggle("hide", !isPaused);
+    if ($("gen")) $("gen").disabled = isPaused;
+  }
+
+  function enterApp() {
+    $("loginGate").classList.add("hide"); $("app").classList.remove("hide");
+    applyRolePermissions(); fillHeads(); updateSessionUI(); renderDesk(); renderUserList(); renderMarketTab();
+    if (getFbBase()) pullStateFromFirebase(true);
+  }
+  function showLogin() {
+    currentUser = null; closeDrawer();
+    $("slipwrap").classList.add("hide"); $("app").classList.add("hide"); $("loginGate").classList.remove("hide");
+    if ($("loginErr")) $("loginErr").classList.add("hide");
+  }
+  function attemptLogin() {
+    var uid = String(($("loginId") ? $("loginId").value : "") || "").trim().toLowerCase();
+    var pwd = String(($("loginPass") ? $("loginPass").value : "") || "").trim();
+    var found = users.find(function(u) { return String(u.id || "").trim().toLowerCase() === uid && String(u.pass || "").trim() === pwd; });
+    if (!found) { showLoginStatus("Invalid User ID or Password.", true); return; }
+    var normU = normalizeUserObj(found);
+    if (normU.role !== "admin" && normU.status === "blocked") { showLoginStatus("Your account is BLOCKED by Admin.", true); return; }
+    currentUser = normU;
+    showLoginStatus("Logging in...", false);
+    enterApp();
+  }
+  if ($("loginBtn")) $("loginBtn").addEventListener("click", attemptLogin);
+  if ($("loginPass")) $("loginPass").addEventListener("keydown", function(e) { if (e.key === "Enter") attemptLogin(); });
+  if ($("logoutBtn")) $("logoutBtn").addEventListener("click", showLogin);
+
+  function updateSessionUI() {
+    sessionMode = $("sessionSel").value || "OPEN";
+    sv("jio_play_session_mode_v24", sessionMode);
+    if (sessionMode === "CLOSE") {
+      $("sessionHint").textContent = "CLOSE mode: Single & non-decremented PAANA (sp/dp/tp/fm) allowed.";
+      $("sessionHint").style.color = "#fde68a";
+    } else {
+      $("sessionHint").textContent = "OPEN mode: Single, Jodi, non-decremented PAANA (sp/dp/tp/fm), Cycles (/../////), JK & SANGAM.";
+      $("sessionHint").style.color = "var(--mut)";
+    }
+    var hName = heads[hi] || heads[0] || "";
+    var av = checkHeadingSessionAvailability(hName, sessionMode);
+    if ($("cutoffStatusHint")) {
+      if (isAdmin()) {
+        $("cutoffStatusHint").textContent = av.reason ? (hName + " (" + sessionMode + "): " + av.reason) : "";
+        $("cutoffStatusHint").style.color = "#7dd3fc";
+      } else {
+        $("cutoffStatusHint").textContent = av.allowed ? (av.reason || (hName + " " + sessionMode + " is available")) : ("LOCKED: " + av.reason);
+        $("cutoffStatusHint").style.color = av.allowed ? "#6ee7b7" : "#fda4af";
+      }
+    }
+  }
+  function fillHeads() {
+    marketConfig = normalizeMarketConfig(marketConfig, heads);
+    sv("jio_play_market_v39", marketConfig);
+    $("head").innerHTML = heads.map(function(h, i) {
+      var mCfg = marketConfig[h];
+      var lockLbl = (!isAdmin() && mCfg && mCfg.active === false) ? " (Closed)" : "";
+      return '<option value="' + i + '">' + esc(h + lockLbl) + "</option>";
+    }).join("");
+    $("head").value = String(hi);
+    if ($("vHead")) {
+      var prevV = $("vHead").value;
+      $("vHead").innerHTML = heads.map(function(h) { return "<option>" + esc(h) + "</option>"; }).join("");
+      $("vHead").value = (prevV && heads.indexOf(prevV) >= 0) ? prevV : (heads[hi] || heads[0]);
+    }
+    if ($("lGameSel")) {
+      var prevL = $("lGameSel").value;
+      $("lGameSel").innerHTML = heads.map(function(h) { return "<option>" + esc(h) + "</option>"; }).join("") + '<option value="*">ALL GAMES (COMBINED)</option>';
+      $("lGameSel").value = (prevL && (prevL === "*" || heads.indexOf(prevL) >= 0)) ? prevL : (heads[hi] || heads[0]);
+    }
+    updatePublishedResultReadout();
+  }
+  function getExpandedSlipRows(slip) {
+    if (!slip) return [];
+    if (Array.isArray(slip.expandedRows) && slip.expandedRows.length) return slip.expandedRows;
+    var out = [];
+    (slip.rows || []).forEach(function(r) {
+      if (Array.isArray(r.expanded) && r.expanded.length) {
+        r.expanded.forEach(function(ex) { out.push({ n: ex.n, a: ex.a !== undefined ? ex.a : r.a, cat: ex.cat !== undefined ? ex.cat : r.cat, session: r.session || slip.session || "OPEN" }); });
+      } else out.push(r);
+    });
+    return out;
+  }
+  function computeFiveTotals(entryRows) {
+    var sums = [0, 0, 0, 0, 0];
+    entryRows.forEach(function(r) {
+      if (r.a === null || r.a === undefined) return;
+      var amt = Number(r.a) || 0;
+      if (Array.isArray(r.expanded) && r.expanded.length) {
+        r.expanded.forEach(function(ex) { var ci = typeof ex.cat === "number" ? ex.cat : (typeof r.cat === "number" ? r.cat : 2); if (ci >= 0 && ci < 5) sums[ci] = round2(sums[ci] + amt); });
+      } else {
+        var ci = typeof r.cat === "number" ? r.cat : classifyNumber(r.n, r.session || "OPEN").catIndex;
+        if (ci >= 0 && ci < 5) sums[ci] = round2(sums[ci] + amt);
+      }
+    });
+    return sums;
+  }
+  function rowDisplayAmount(r) {
+    if (r.a === null || r.a === undefined) return "?";
+    var count = (Array.isArray(r.expanded) && r.expanded.length > 1) ? r.expanded.length : 1;
+    var lineTotal = round2(Number(r.a) * count);
+    return count > 1 ? (r.a + " ×" + count + " = " + lineTotal) : String(r.a);
+  }
+  function renderDesk() {
+    saveDraft();
+    $("list").innerHTML = rows.length ? rows.map(function(r, i) {
+      var pending = r.a === null, sessTag = (r.session || sessionMode) === "CLOSE" ? " · CLS" : "";
+      return '<div class="line"><span class="main" data-e="' + i + '"' + (pending ? ' style="color:#7dd3fc"' : "") + '>' + esc(r.slipLabel || r.n) + "=" + esc(rowDisplayAmount(r)) + '</span><span class="tag">' + SHORT_CATS[r.cat] + sessTag + '</span><a href="#" class="del-x" data-d="' + i + '">&#10005;</a></div>';
+    }).join("") : '<div style="color:var(--mut);font-size:14px;padding:12px 0">Validated entries appear here. Tap any row to edit.</div>';
+    $("list").scrollTop = $("list").scrollHeight;
+    var sums = computeFiveTotals(rows);
+    $("liveBreakdown").innerHTML = CATS.map(function(label, idx) { return '<div class="b-item"><span>' + label + "</span><span>" + sums[idx] + "</span></div>"; }).join("");
+    var grand = round2(sums.reduce(function(acc, v) { return acc + v; }, 0));
+    var pendingCount = rows.filter(function(r) { return r.a === null; }).length;
+    $("total").textContent = grand + (pendingCount ? " (" + pendingCount + " ?)" : "");
+    $("hc").textContent = String(getScopedSlips("*").length);
+  }
+  function splitNumberAndValue(lineStr) {
+    var s = lineStr.trim();
+    var pairLead = s.match(/^(\d+\s*[xX×\-]\s*\d+)\s*(.*)$/);
+    if (pairLead) {
+      var rest = pairLead[2].trim();
+      if (!rest) return { numPart: pairLead[1], valPart: null, hasSign: false, badSign: false };
+      if (!VALUE_SIGNS.test(rest.charAt(0))) return { numPart: pairLead[1], valPart: null, hasSign: false, badSign: true };
+      return { numPart: pairLead[1], valPart: rest.slice(1).trim(), hasSign: true, badSign: false };
+    }
+    var fmLead = s.match(/^(\d{3}\s*(?:fm|family))\s*(.*)$/i);
+    if (fmLead) {
+      var fmRest = fmLead[2].trim();
+      if (!fmRest) return { numPart: fmLead[1], valPart: null, hasSign: false, badSign: false };
+      if (!VALUE_SIGNS.test(fmRest.charAt(0))) return { numPart: fmLead[1], valPart: null, hasSign: false, badSign: true };
+      return { numPart: fmLead[1], valPart: fmRest.slice(1).trim(), hasSign: true, badSign: false };
+    }
+    var cycLead = s.match(/^(\d+\s*\/{1,5}\s*\d+)\s*(.*)$/);
+    if (cycLead) {
+      var cycRest = cycLead[2].trim();
+      if (!cycRest) return { numPart: cycLead[1], valPart: null, hasSign: false, badSign: false };
+      if (!VALUE_SIGNS.test(cycRest.charAt(0))) return { numPart: cycLead[1], valPart: null, hasSign: false, badSign: true };
+      return { numPart: cycLead[1], valPart: cycRest.slice(1).trim(), hasSign: true, badSign: false };
+    }
+    for (var i = 0; i < s.length; i++) {
+      var ch = s.charAt(i);
+      if (ch === "-") {
+        if (/^\d+$/.test(s.slice(0, i).trim()) && /^\d+$/.test(s.slice(i + 1).trim())) continue;
+        return { numPart: s.slice(0, i).trim(), valPart: s.slice(i + 1).trim(), hasSign: true, badSign: false };
+      }
+      if (VALUE_SIGNS.test(ch)) return { numPart: s.slice(0, i).trim(), valPart: s.slice(i + 1).trim(), hasSign: true, badSign: false };
+    }
+    return { numPart: s, valPart: null, hasSign: false, badSign: false };
+  }
+  function applyAmountToRow(r, amount) { r.a = amount; if (Array.isArray(r.expanded)) r.expanded.forEach(function(ex) { ex.a = amount; }); }
+  function parseAndAdd() {
+    var mode = $("sessionSel").value || "OPEN";
+    var lines = $("inp").value.split(/\r?\n/), errors = [], leftovers = [], parsedItems = [];
+    lines.forEach(function(line) {
+      var l = line.trim(); if (!l) return;
+      var sp = splitNumberAndValue(l);
+      if (sp.badSign) { errors.push('"' + l + '" needs sign before value'); leftovers.push(l); return; }
+      var exp = expandEntryTokens(sp.numPart, mode);
+      if (!exp.ok) { errors.push(exp.error); leftovers.push(l); return; }
+      var amount = null;
+      if (sp.valPart !== null && sp.valPart !== "") {
+        amount = evalMath(sp.valPart);
+        if (isNaN(amount) || amount < 0) { errors.push('"' + l + '" invalid amount'); leftovers.push(l); return; }
+      }
+      parsedItems.push({ rawLine: l, slipLabel: sp.numPart.trim(), items: exp.items, amount: amount, hasSign: sp.hasSign });
+    });
+    var pendingIndices = [];
+    for (var idx = 0; idx < rows.length; idx++) if (rows[idx].a === null) pendingIndices.push(idx);
+    parsedItems.forEach(function(item) {
+      var amount = item.amount, isGroup = item.items.length > 1 || item.slipLabel !== item.items[0].norm, createdIndices = [];
+      if (isGroup) {
+        rows.push({ n: item.slipLabel, slipLabel: item.slipLabel, a: amount, cat: item.items[0].catIndex, session: mode, expanded: item.items.map(function(tok) { return { n: tok.norm, a: amount, cat: tok.catIndex }; }) });
+        createdIndices.push(rows.length - 1);
+      } else {
+        item.items.forEach(function(tok) { rows.push({ n: tok.norm, slipLabel: tok.norm, a: amount, cat: tok.catIndex, session: mode }); createdIndices.push(rows.length - 1); });
+      }
+      if (amount !== null) { for (var p = 0; p < pendingIndices.length; p++) applyAmountToRow(rows[pendingIndices[p]], amount); pendingIndices = []; }
+      else if (!item.hasSign) { for (var c = 0; c < createdIndices.length; c++) pendingIndices.push(createdIndices[c]); }
+    });
+    if (errors.length) { $("errbox").textContent = errors.join(" • "); $("errbox").classList.remove("hide"); } else $("errbox").classList.add("hide");
+    $("inp").value = leftovers.join("\n"); renderDesk(); $("inp").focus();
+  }
+
+  function getScopedSlips(selectedUserScope) {
+    if (!currentUser) return [];
+    if (!isAdmin()) return hist.filter(function(s) { return (s.user || "admin").toLowerCase() === currentUser.id.toLowerCase(); });
+    if (!selectedUserScope || selectedUserScope === "*") return hist;
+    return hist.filter(function(s) { return (s.user || "admin").toLowerCase() === selectedUserScope.toLowerCase(); });
+  }
+  function populateUserSelects() {
+    var userIds = [];
+    users.forEach(function(u) { if (userIds.indexOf(u.id) < 0) userIds.push(u.id); });
+    hist.forEach(function(s) { var uid = s.user || "admin"; if (userIds.indexOf(uid) < 0) userIds.push(uid); });
+    var optsHtml = '<option value="*">COMBINED (ALL USERS)</option>' + userIds.map(function(uid) { return '<option value="' + esc(uid) + '">User: ' + esc(uid) + "</option>"; }).join("");
+    if ($("hUserFilter")) { var p = $("hUserFilter").value || "*"; $("hUserFilter").innerHTML = optsHtml; $("hUserFilter").value = p; }
+    if ($("dUserFilter")) { var p2 = $("dUserFilter").value || "*"; $("dUserFilter").innerHTML = optsHtml; $("dUserFilter").value = p2; }
+    if ($("vUserScope")) { var p3 = $("vUserScope").value || "*"; $("vUserScope").innerHTML = optsHtml; $("vUserScope").value = p3; }
+    if ($("lUserSel")) { var p4 = $("lUserSel").value || "*"; $("lUserSel").innerHTML = '<option value="*">Total Loading (All Users)</option>' + userIds.map(function(uid) { return '<option value="' + esc(uid) + '">User: ' + esc(uid) + "</option>"; }).join(""); $("lUserSel").value = p4; }
+  }
+
+  function renderHistory() {
+    populateUserSelects();
+    var q = ($("hsearch").value || "").trim().toLowerCase(), hf = $("hfilter").value || "*";
+    var uScope = isAdmin() && $("hUserFilter") ? $("hUserFilter").value : currentUser.id;
+    var baseList = getScopedSlips(uScope), usedHeads = [];
+    baseList.forEach(function(s) { if (usedHeads.indexOf(s.head) < 0) usedHeads.push(s.head); });
+    $("hfilter").innerHTML = '<option value="*">All Headings</option>' + usedHeads.map(function(h) { return "<option>" + esc(h) + "</option>"; }).join("");
+    if (hf === "*" || usedHeads.indexOf(hf) >= 0) $("hfilter").value = hf;
+    var filtered = baseList.map(function(s) { return { s: s, realIdx: hist.indexOf(s) }; }).filter(function(item) {
+      var s = item.s, sid = ensureSlipId(s).toLowerCase();
+      if (hf !== "*" && s.head !== hf) return false;
+      if (!q) return true;
+      var expList = getExpandedSlipRows(s);
+      return sid.indexOf(q) >= 0 || s.head.toLowerCase().indexOf(q) >= 0 || (s.user || "").toLowerCase().indexOf(q) >= 0 ||
+        s.rows.some(function(r) { return String(r.slipLabel || r.n).toLowerCase().indexOf(q) >= 0; }) ||
+        expList.some(function(r) { return String(r.n).toLowerCase().indexOf(q) >= 0; });
+    });
+    $("hlist").innerHTML = filtered.length ? filtered.map(function(item) {
+      var s = item.s, sid = ensureSlipId(s), sess = s.session || "OPEN", uTag = isAdmin() ? " · User: " + esc(s.user || "admin") : "";
+      return '<div class="h" data-v="' + item.realIdx + '"><div><span class="tag" style="margin-right:6px">' + esc(sid) + '</span><b>' + esc(s.head) + '</b> <span class="tag">' + esc(sess) + '</span><br><small>' + stamp(s.t) + ' · ' + s.rows.length + ' lines (' + getExpandedSlipRows(s).length + ' entries)' + uTag + '</small></div><b>' + s.total + '</b></div>';
+    }).join("") : '<p style="color:var(--mut);text-align:center;padding:20px 0">No saved slips yet.</p>';
+  }
+
+  function renderDataTab() {
+    populateUserSelects();
+    var uScope = isAdmin() && $("dUserFilter") ? $("dUserFilter").value : currentUser.id;
+    var scoped = getScopedSlips(uScope), names = [];
+    scoped.forEach(function(s) { if (names.indexOf(s.head) < 0) names.push(s.head); });
+    var sel = $("dsel"), prev = sel.value;
+    sel.innerHTML = (names.length > 1 ? '<option value="*">ALL HEADINGS (GROUPED)</option>' : "") + names.map(function(n) { return "<option>" + esc(n) + "</option>"; }).join("");
+    if (prev && (prev === "*" || names.indexOf(prev) >= 0)) sel.value = prev;
+    drawDataReport();
+  }
+
+  function drawDataReport() {
+    var target = $("dsel").value, sessFilter = $("dSessionFilter") ? $("dSessionFilter").value : "*";
+    var uScope = isAdmin() && $("dUserFilter") ? $("dUserFilter").value : currentUser.id;
+    var scoped = getScopedSlips(uScope), out = $("dout"), vListEl = $("dSlipVerticalList");
+    if (!target) {
+      if (vListEl) vListEl.innerHTML = "";
+      out.innerHTML = '<p style="color:var(--mut);text-align:center;padding:20px 0">No data yet.</p>';
+      $("dtxt").value = ""; return;
+    }
+    var matchingSlips = scoped.slice().reverse().filter(function(s) {
+      if (target !== "*" && s.head !== target) return false;
+      return sessFilter === "*" || (s.session || "OPEN") === sessFilter;
+    }).map(function(s) { ensureSlipId(s); return s; });
+    if (selectedDataSlipId !== "*" && !matchingSlips.some(function(s) { return s.slipId === selectedDataSlipId; })) selectedDataSlipId = "*";
+    if (vListEl) {
+      if (matchingSlips.length) {
+        var allRow = '<button type="button" class="slip-v-item' + (selectedDataSlipId === "*" ? " active" : "") + '" data-dslip="*"><span>ALL SLIPS (' + matchingSlips.length + ')</span><span class="slip-v-meta">Grouped</span></button>';
+        var slipRows = matchingSlips.map(function(s) {
+          return '<button type="button" class="slip-v-item' + (selectedDataSlipId === s.slipId ? " active" : "") + '" data-dslip="' + esc(s.slipId) + '"><span>' + esc(String(s.slipId).toLowerCase()) + '</span><span class="slip-v-meta">' + esc(s.head) + ' · ' + s.total + '₹</span></button>';
+        }).join("");
+        vListEl.innerHTML = allRow + slipRows;
+      } else vListEl.innerHTML = "";
+    }
+    var activeSlips = selectedDataSlipId === "*" ? matchingSlips : matchingSlips.filter(function(s) { return s.slipId === selectedDataSlipId; });
+    var headingMap = new Map();
+    activeSlips.forEach(function(s) {
+      var hKey = s.head || "HEADING";
+      if (!headingMap.has(hKey)) headingMap.set(hKey, { groups: [new Map(), new Map(), new Map(), new Map(), new Map()], totals: [0, 0, 0, 0, 0], grand: 0 });
+      var hObj = headingMap.get(hKey), sSess = s.session || "OPEN";
+      getExpandedSlipRows(s).forEach(function(r) {
+        if (sessFilter !== "*" && (r.session || sSess) !== sessFilter) return;
+        var cls = classifyNumber(r.n, "OPEN"); if (!cls.ok) return;
+        var val = Number(r.a) || 0;
+        hObj.groups[cls.catIndex].set(cls.norm, round2((hObj.groups[cls.catIndex].get(cls.norm) || 0) + val));
+        hObj.totals[cls.catIndex] = round2(hObj.totals[cls.catIndex] + val);
+        hObj.grand = round2(hObj.grand + val);
+      });
+    });
+    var html = "", plain = "", overallGrand = 0;
+    headingMap.forEach(function(hObj, hName) {
+      if (!hObj.grand) return;
+      overallGrand = round2(overallGrand + hObj.grand);
+      html += '<div class="stat-group"><div class="stat-head"><b>' + esc(hName) + "</b><span>Total: " + hObj.grand + "</span></div>";
+      plain += "\n=== " + hName + " [Total: " + hObj.grand + "] ===\n";
+      hObj.groups.forEach(function(map, idx) {
+        if (!map.size) return;
+        var entries = Array.from(map.entries()).sort(function(a, b) { return a[0].localeCompare(b[0], undefined, { numeric: true }); });
+        var pairs = entries.map(function(kv) { return kv[0] + "=" + kv[1]; });
+        html += '<div style="margin:6px 0"><small style="color:#c4b5fd;font-weight:800">' + esc(CATS[idx]) + " (" + hObj.totals[idx] + '):</small><div class="stat-vals">' + esc(pairs.join(", ")) + "</div></div>";
+        plain += CATS[idx] + " (" + hObj.totals[idx] + "): " + pairs.join(", ") + "\n";
+      });
+      html += "</div>";
+    });
+    if (html) { html += '<div class="grand-box"><span>Total Data</span><span>' + overallGrand + "</span></div>"; plain += "\nTOTAL DATA: " + overallGrand; }
+    out.innerHTML = html || '<p style="color:var(--mut)">No entries for this selection.</p>';
+    $("dtxt").value = html ? plain.trim() : "";
+  }
+
+  function readLimitInput(id) { var el = $(id); if (!el) return 0; var val = parseFloat(el.value); return (!isNaN(val) && val > 0) ? val : 0; }
+  function buildAdminLoadingCopyText() {
+    var snap = lastLoadSnapshot; if (!snap) return "";
+    var gameSel = $("lGameSel") ? $("lGameSel").value : "*", sessSel = $("lSessionSel") ? $("lSessionSel").value : "OPEN";
+    var titleHeader = ((!gameSel || gameSel === "*") ? "ALL GAMES" : gameSel) + " - " + ((!sessSel || sessSel === "*") ? "ALL" : sessSel);
+    var limSingle = readLimitInput("limSingle"), limDouble = readLimitInput("limDouble"), limTriple = readLimitInput("limTriple"), limJk = readLimitInput("limJk"), limSangam = readLimitInput("limSangam");
+    function applyCap(amt, cap) { var n = round2(amt); return cap > 0 ? round2(Math.max(0, n - cap)) : n; }
+    var singleLines = [];
+    DIGIT_ORDER.forEach(function(d) { var v = applyCap(snap.singleMap[d] || 0, limSingle); if (v > 0) singleLines.push(d + "=" + v + "₹"); });
+    function mapToLines(mp, cap) {
+      return Array.from(mp.entries()).sort(function(a, b) { return a[0].localeCompare(b[0], undefined, { numeric: true }); })
+        .map(function(kv) { return { k: kv[0], v: applyCap(kv[1], cap) }; }).filter(function(x) { return x.v > 0; }).map(function(x) { return x.k + "=" + x.v + "₹"; });
+    }
+    var doubleLines = mapToLines(snap.doubleMap, limDouble), tripleLines = mapToLines(snap.tripleMap, limTriple), jkLines = mapToLines(snap.jkMap, limJk), sangamLines = mapToLines(snap.sangamMap, limSangam);
+    var sections = [titleHeader];
+    if (singleLines.length) sections.push("Single digits\n" + singleLines.join("\n"));
+    if (doubleLines.length) sections.push("Doubles\n" + doubleLines.join("\n"));
+    if (tripleLines.length) sections.push("Triples\n" + tripleLines.join("\n"));
+    if (jkLines.length) sections.push("JK\n" + jkLines.join("\n"));
+    if (sangamLines.length) sections.push("SANGAM\n" + sangamLines.join("\n"));
+    return sections.length > 1 ? sections.join("\n\n") : "";
+  }
+  function getLinkedExposureForNumber(snap, numKey) {
+    var jkTotal = 0, sangamTotal = 0, jkItems = [], sangamItems = [];
+    if (!snap || !numKey) return { jkTotal: 0, sangamTotal: 0, jkItems: [], sangamItems: [] };
+    snap.jkMap.forEach(function(amt, pair) { var p = pair.split(PAIR_SEP); if (p[0] === numKey || p[1] === numKey) { jkTotal = round2(jkTotal + amt); jkItems.push(pair + "=" + fmtRs(amt)); } });
+    snap.sangamMap.forEach(function(amt, pair) { var p = pair.split(PAIR_SEP); if (p[0] === numKey || p[1] === numKey) { sangamTotal = round2(sangamTotal + amt); sangamItems.push(pair + "=" + fmtRs(amt)); } });
+    return { jkTotal: jkTotal, sangamTotal: sangamTotal, jkItems: jkItems, sangamItems: sangamItems };
+  }
+  function renderLinkedExposureSummary(snap, focusNum) {
+    if (!$("lLinkedExposureBox") || !snap) return;
+    var jkEntries = Array.from(snap.jkMap.entries()).sort(function(a, b) { return b[1] - a[1]; });
+    var sgEntries = Array.from(snap.sangamMap.entries()).sort(function(a, b) { return b[1] - a[1]; });
+    var jkTotal = round2(jkEntries.reduce(function(acc, kv) { return acc + kv[1]; }, 0)), sgTotal = round2(sgEntries.reduce(function(acc, kv) { return acc + kv[1]; }, 0));
+    var focusHtml = "";
+    if (focusNum) {
+      var linked = getLinkedExposureForNumber(snap, focusNum);
+      focusHtml = '<div style="margin-top:8px;padding-top:8px;border-top:1px dashed rgba(167,139,250,0.35);font-size:13px"><b style="color:#fde047">Linked to "' + esc(focusNum) + '":</b> JK = <b>' + fmtRs(linked.jkTotal) + "</b> · SANGAM = <b>" + fmtRs(linked.sangamTotal) + "</b></div>";
+    }
+    $("lLinkedExposureBox").innerHTML = '<div class="stat-group"><div class="stat-head"><b>JK &amp; SANGAM Linked Exposure</b><span>' + fmtRs(round2(jkTotal + sgTotal)) + '</span></div><div class="stat-vals" style="font-size:13px"><b>JK (' + fmtRs(jkTotal) + "):</b> " + esc(jkEntries.length ? jkEntries.map(function(kv) { return kv[0] + "=" + fmtRs(kv[1]); }).join(", ") : "None") + '</div><div class="stat-vals" style="font-size:13px;margin-top:4px"><b>SANGAM (' + fmtRs(sgTotal) + "):</b> " + esc(sgEntries.length ? sgEntries.map(function(kv) { return kv[0] + "=" + fmtRs(kv[1]); }).join(", ") : "None") + "</div>" + focusHtml + "</div>";
+  }
+  function renderLoadingTab() {
+    if (!isAdmin() || !$("loadingTab") || $("loadingTab").classList.contains("hide")) return;
+    populateUserSelects();
+    var gameSel = $("lGameSel").value || "*", sessSel = $("lSessionSel").value || "OPEN", uScope = $("lUserSel") ? $("lUserSel").value : "*";
+    var singleMap = { "1": 0, "2": 0, "3": 0, "4": 0, "5": 0, "6": 0, "7": 0, "8": 0, "9": 0, "0": 0 };
+    var doubleMap = new Map(), tripleMap = new Map(), jkMap = new Map(), sangamMap = new Map(), userMap = new Map();
+    getScopedSlips("*").forEach(function(s) {
+      if (gameSel !== "*" && s.head !== gameSel) return;
+      var sSess = s.session || "OPEN";
+      if (sessSel !== "*" && sSess !== sessSel) return;
+      var uid = s.user || "admin", slipAmt = 0;
+      getExpandedSlipRows(s).forEach(function(r) {
+        if (sessSel !== "*" && (r.session || sSess) !== sessSel) return;
+        var cls = classifyNumber(r.n, "OPEN"); if (!cls.ok) return;
+        var val = Number(r.a) || 0; slipAmt = round2(slipAmt + val);
+        if (uScope === "*" || uid === uScope) {
+          if (cls.catIndex === 0 && Object.prototype.hasOwnProperty.call(singleMap, cls.norm)) singleMap[cls.norm] = round2(singleMap[cls.norm] + val);
+          else if (cls.catIndex === 1) { var dKey = cls.norm.length === 1 ? ("0" + cls.norm) : cls.norm; doubleMap.set(dKey, round2((doubleMap.get(dKey) || 0) + val)); }
+          else if (cls.catIndex === 2) { var tKey = cls.norm.padStart(3, "0"); tripleMap.set(tKey, round2((tripleMap.get(tKey) || 0) + val)); }
+          else if (cls.catIndex === 3) jkMap.set(cls.norm, round2((jkMap.get(cls.norm) || 0) + val));
+          else if (cls.catIndex === 4) sangamMap.set(cls.norm, round2((sangamMap.get(cls.norm) || 0) + val));
+        }
+      });
+      if (slipAmt > 0) userMap.set(uid, round2((userMap.get(uid) || 0) + slipAmt));
+    });
+    lastLoadSnapshot = { singleMap: singleMap, doubleMap: doubleMap, tripleMap: tripleMap, jkMap: jkMap, sangamMap: sangamMap };
+    document.querySelectorAll(".mode-chip-btn").forEach(function(btn) { btn.classList.toggle("active", btn.getAttribute("data-lmode") === activeLoadMode); });
+    var modeTotal = 0;
+    if (activeLoadMode === "SINGLE") {
+      $("lModeTitle").textContent = "Single Digits Chart (₹)";
+      $("lSingleChartWrap").classList.remove("hide"); $("lMultiViewWrap").classList.add("hide");
+      modeTotal = round2(DIGIT_ORDER.reduce(function(acc, d) { return acc + singleMap[d]; }, 0));
+      var maxVal = Math.max.apply(null, DIGIT_ORDER.map(function(d) { return singleMap[d]; }));
+      $("lChartBars").innerHTML = DIGIT_ORDER.map(function(d) {
+        var amt = singleMap[d], hPct = maxVal > 0 ? Math.max(amt > 0 ? 8 : 2, Math.round((amt / maxVal) * 82)) : 2;
+        var barCls = "chart-bar" + (amt > 0 && amt === maxVal ? " hot" : (amt > 0 && amt >= maxVal * 0.5 ? " mid" : ""));
+        return '<div class="chart-col" data-ldigit="' + d + '" data-lamt="' + amt + '"><span class="chart-rs">' + fmtRs(amt) + '</span><div class="' + barCls + '" style="height:' + hPct + '%"></div></div>';
+      }).join("");
+      $("lChartDigits").innerHTML = DIGIT_ORDER.map(function(d) { return '<div class="chart-digit-lbl">' + d + "</div>"; }).join("");
+    } else {
+      $("lModeTitle").textContent = activeLoadMode === "DOUBLE" ? "Loaded Double Digits Only (₹)" : "Loaded Triple Digits Only (₹)";
+      $("lSingleChartWrap").classList.add("hide"); $("lMultiViewWrap").classList.remove("hide");
+      var srcMap = activeLoadMode === "DOUBLE" ? doubleMap : tripleMap;
+      modeTotal = round2(Array.from(srcMap.values()).reduce(function(a, b) { return a + b; }, 0));
+      var qNum = ($("lNumSearch") ? $("lNumSearch").value : "").trim(), sortBy = $("lSortSel") ? $("lSortSel").value : "HIGH_RS";
+      var listArr = Array.from(srcMap.entries()).filter(function(kv) { return kv[1] > 0 && (!qNum || kv[0].indexOf(qNum) >= 0); });
+      if (sortBy === "NUM_ASC") listArr.sort(function(a, b) { return a[0].localeCompare(b[0]); });
+      else listArr.sort(function(a, b) { return b[1] - a[1] || a[0].localeCompare(b[0]); });
+      $("lMultiTiles").innerHTML = listArr.length ? listArr.map(function(kv) {
+        return '<div class="load-num-tile" data-ldigit="' + esc(kv[0]) + '" data-lamt="' + kv[1] + '"><span class="load-num-key">' + esc(kv[0]) + '</span><span class="load-num-rs">' + fmtRs(kv[1]) + "</span></div>";
+      }).join("") : '<div class="bt-status" style="grid-column:1/-1;text-align:center;padding:14px">No loaded numbers yet.</div>';
+    }
+    $("lTotalLabel").textContent = (uScope === "*" ? "Total Loading (All Users)" : "User: " + uScope) + " (" + activeLoadMode + ")";
+    $("lGrandTotal").textContent = fmtRs(modeTotal);
+    renderLinkedExposureSummary(lastLoadSnapshot, null);
+    var userEntries = Array.from(userMap.entries()).sort(function(a, b) { return b[1] - a[1]; });
+    var allUsersSum = round2(userEntries.reduce(function(acc, kv) { return acc + kv[1]; }, 0));
+    $("lUserwiseBreakdown").innerHTML = '<div class="stat-group"><div class="stat-head"><b>Userwise Loading Breakdown</b><span>Total: ' + fmtRs(allUsersSum) + "</span></div>" + (userEntries.length ? userEntries.map(function(kv) { return '<div class="user-row"><div class="user-row-top"><b>' + esc(kv[0]) + '</b><span style="font-family:\'JetBrains Mono\',monospace;font-weight:800;color:#fde047">' + fmtRs(kv[1]) + "</span></div></div>"; }).join("") : '<div class="bt-status">No entries yet.</div>') + "</div>";
+  }
+
+  function parseResultString(rawStr) {
+    var clean = String(rawStr || "").trim().replace(/\s+/g, ""), parts = clean.split("-").filter(Boolean);
+    if (parts.length !== 2 && parts.length !== 3) return null;
+    var openPaana = parts[0], openSingle = parts[1].charAt(0);
+    if (!/^\d{3}$/.test(openPaana) || !/^\d$/.test(openSingle)) return null;
+    var isFull = parts.length === 3, fullJodi = isFull ? parts[1] : "", closePaana = isFull ? parts[2] : "";
+    if (isFull && (!/^\d{2}$/.test(fullJodi) || !/^\d{3}$/.test(closePaana))) return null;
+    var closeSingle = isFull ? String(closePaana.split("").reduce(function(acc, d) { return acc + Number(d); }, 0) % 10) : "";
+    return { raw: clean, isFull: isFull, openPaana: openPaana, openSingle: openSingle, fullJodi: fullJodi, closePaana: closePaana, closeSingle: closeSingle };
+  }
+  function getUserMultipliers(userId) {
+    if (!userId || String(userId).toLowerCase() === "admin") {
+      var adm = users.find(function(u) { return u.role === "admin"; });
+      return normalizeMultipliers(adm && adm.multipliers);
+    }
+    var found = users.find(function(u) { return u.id.toLowerCase() === String(userId).toLowerCase(); });
+    return normalizeMultipliers(found && found.multipliers);
+  }
+  function computeEntryPayout(clsNorm, catIndex, sessionName, amt, resObj, mults) {
+    if (!resObj || !amt) return 0;
+    var m = normalizeMultipliers(mults);
+    if (catIndex === 0) {
+      if (sessionName === "OPEN" && clsNorm === resObj.openSingle) return round2(amt * m.single);
+      if (resObj.isFull && sessionName === "CLOSE" && clsNorm === resObj.closeSingle) return round2(amt * m.single);
+      return 0;
+    }
+    if (catIndex === 1) return (resObj.isFull && sessionName === "OPEN" && clsNorm === resObj.fullJodi) ? round2(amt * m.jodi) : 0;
+    if (catIndex === 2) {
+      var matchedPaana = (sessionName === "OPEN" && clsNorm === resObj.openPaana) || (resObj.isFull && sessionName === "CLOSE" && clsNorm === resObj.closePaana);
+      if (!matchedPaana) return 0;
+      var sub = tripleSubType(clsNorm);
+      return round2(amt * (sub === "TP" ? m.tp : (sub === "DP" ? m.dp : m.sp)));
+    }
+    if (catIndex === 3) {
+      if (!resObj.isFull || sessionName !== "OPEN") return 0;
+      var kp = clsNorm.split(PAIR_SEP);
+      return ((kp[0] === resObj.openPaana || kp[0] === resObj.openSingle) && (kp[1] === resObj.openPaana || kp[1] === resObj.openSingle)) ? round2(amt * m.jk) : 0;
+    }
+    if (catIndex === 4) {
+      if (!resObj.isFull || sessionName !== "OPEN") return 0;
+      var sp = clsNorm.split(PAIR_SEP);
+      return ((sp[0] === resObj.openPaana && sp[1] === resObj.closePaana) || (sp[1] === resObj.openPaana && sp[0] === resObj.closePaana)) ? round2(amt * m.sangam) : 0;
+    }
+    return 0;
+  }
+  function getActiveDayPublishedResult(hName) {
+    var dayKey = getHisabDayInfo(Date.now()).key;
+    return (savedResults[dayKey] && savedResults[dayKey][hName]) || null;
+  }
+  function updatePublishedResultReadout() {
+    if (!$("vHead") || !$("vPublishedResultText")) return;
+    var hName = $("vHead").value, dayInfo = getHisabDayInfo(Date.now());
+    if ($("vDayBadge")) $("vDayBadge").textContent = dayInfo.label;
+    var pub = getActiveDayPublishedResult(hName);
+    $("vPublishedResultText").textContent = pub ? pub.raw : "Not Published Yet";
+    if (isAdmin() && $("vResultInput") && pub && !$("vResultInput").value) $("vResultInput").value = pub.raw;
+  }
+  function runResultVerification() {
+    var hName = $("vHead").value, uScope = isAdmin() && $("vUserScope") ? $("vUserScope").value : currentUser.id, pubRes = getActiveDayPublishedResult(hName);
+    if (!hName || !pubRes) { $("vOutput").innerHTML = '<div class="note-box">No result published by Admin for <b>' + esc(hName || "heading") + "</b> yet.</div>"; return; }
+    var resObj = pubRes, openPaana = resObj.openPaana, openSingle = resObj.openSingle, isFull = resObj.isFull, fullJodi = resObj.fullJodi, closePaana = resObj.closePaana, closeSingle = resObj.closeSingle;
+    var openPaanaPassed = 0, openSinglePassed = 0, jodiExactPassed = 0, closePaanaPassed = 0, closeSinglePassed = 0, jkPassed = 0, sangamPassed = 0;
+    var openPaanaPay = 0, openSinglePay = 0, jodiExactPay = 0, closePaanaPay = 0, closeSinglePay = 0, jkPay = 0, sangamPay = 0;
+    getScopedSlips(uScope).filter(function(s) { return s.head === hName; }).forEach(function(s) {
+      var sSess = s.session || "OPEN", uMults = getUserMultipliers(s.user || "admin");
+      getExpandedSlipRows(s).forEach(function(r) {
+        var rSess = r.session || sSess, amt = Number(r.a) || 0, cls = classifyNumber(r.n, "OPEN"); if (!cls.ok) return;
+        var pay = computeEntryPayout(cls.norm, cls.catIndex, rSess, amt, resObj, uMults);
+        if (cls.catIndex === 2 && rSess === "OPEN" && cls.norm === openPaana) { openPaanaPassed = round2(openPaanaPassed + amt); openPaanaPay = round2(openPaanaPay + pay); }
+        if (cls.catIndex === 2 && isFull && rSess === "CLOSE" && cls.norm === closePaana) { closePaanaPassed = round2(closePaanaPassed + amt); closePaanaPay = round2(closePaanaPay + pay); }
+        if (cls.catIndex === 0 && rSess === "OPEN" && cls.norm === openSingle) { openSinglePassed = round2(openSinglePassed + amt); openSinglePay = round2(openSinglePay + pay); }
+        if (cls.catIndex === 0 && isFull && rSess === "CLOSE" && cls.norm === closeSingle) { closeSinglePassed = round2(closeSinglePassed + amt); closeSinglePay = round2(closeSinglePay + pay); }
+        if (cls.catIndex === 1 && isFull && rSess === "OPEN" && cls.norm === fullJodi) { jodiExactPassed = round2(jodiExactPassed + amt); jodiExactPay = round2(jodiExactPay + pay); }
+        if (cls.catIndex === 3 && pay > 0) { jkPassed = round2(jkPassed + amt); jkPay = round2(jkPay + pay); }
+        if (cls.catIndex === 4 && pay > 0) { sangamPassed = round2(sangamPassed + amt); sangamPay = round2(sangamPay + pay); }
+      });
+    });
+    var totalPassed = round2(openPaanaPassed + openSinglePassed + (isFull ? (jodiExactPassed + closePaanaPassed + closeSinglePassed + jkPassed + sangamPassed) : 0));
+    var totalPayout = round2(openPaanaPay + openSinglePay + (isFull ? (jodiExactPay + closePaanaPay + closeSinglePay + jkPay + sangamPay) : 0));
+    $("vOutput").innerHTML =
+      '<div class="verify-card passed"><b>Open PAANA (' + esc(openPaana) + ')</b><span>Play: <b>' + openPaanaPassed + '</b> · Pay: <b>' + openPaanaPay + '</b></span></div>' +
+      '<div class="verify-card passed"><b>Open Single (' + esc(openSingle) + ')</b><span>Play: <b>' + openSinglePassed + '</b> · Pay: <b>' + openSinglePay + '</b></span></div>' +
+      (isFull ?
+        '<div class="verify-card passed"><b>Jodi (' + esc(fullJodi) + ')</b><span>Play: <b>' + jodiExactPassed + '</b> · Pay: <b>' + jodiExactPay + '</b></span></div>' +
+        '<div class="verify-card passed"><b>Close PAANA (' + esc(closePaana) + ')</b><span>Play: <b>' + closePaanaPassed + '</b> · Pay: <b>' + closePaanaPay + '</b></span></div>' +
+        '<div class="verify-card passed"><b>Close Single (' + esc(closeSingle) + ')</b><span>Play: <b>' + closeSinglePassed + '</b> · Pay: <b>' + closeSinglePay + '</b></span></div>' +
+        '<div class="verify-card passed"><b>JK Matched</b><span>Play: <b>' + jkPassed + '</b> · Pay: <b>' + jkPay + '</b></span></div>' +
+        '<div class="verify-card passed"><b>SANGAM Matched</b><span>Play: <b>' + sangamPassed + '</b> · Pay: <b>' + sangamPay + '</b></span></div>' : '') +
+      '<div class="grand-box"><span>Passed Play: ' + totalPassed + '</span><span>Payout: ' + totalPayout + "</span></div>";
+  }
+  function publishResultToAllUsers() {
+    if (!isAdmin()) return;
+    var hName = $("vHead").value, resObj = parseResultString($("vResultInput").value);
+    if (!hName || !resObj) { if ($("vSaveMsg")) $("vSaveMsg").textContent = "Enter valid Half (157-3) or Full (157-32-480) result first."; return; }
+    var dayInfo = getHisabDayInfo(Date.now());
+    if (!savedResults[dayInfo.key] || typeof savedResults[dayInfo.key] !== "object") savedResults[dayInfo.key] = {};
+    savedResults[dayInfo.key][hName] = {
+      raw: resObj.raw, isFull: resObj.isFull, openPaana: resObj.openPaana, openSingle: resObj.openSingle,
+      fullJodi: resObj.fullJodi, closePaana: resObj.closePaana, closeSingle: resObj.closeSingle, updatedAt: Date.now()
+    };
+    sv("jio_play_results_v38", savedResults);
+    selectedHisabDayKey = dayInfo.key;
+    updatePublishedResultReadout();
+    if ($("vSaveMsg")) $("vSaveMsg").textContent = "Updated " + hName + " = " + resObj.raw + " for all users ✓";
+    runResultVerification();
+    pushMetaToFirebase();
+  }
+
+  function collectHisabDayKeys() {
+    var set = {}, curDay = getHisabDayInfo(Date.now());
+    set[curDay.key] = curDay.label;
+    hist.forEach(function(s) { var info = getHisabDayInfo(s.t || Date.now()); set[info.key] = info.label; });
+    Object.keys(savedResults || {}).forEach(function(k) {
+      if (!set[k]) {
+        var parts = k.split("-");
+        if (parts.length === 3) set[k] = getHisabDayInfo(new Date(Number(parts[0]), Number(parts[1]) - 1, Number(parts[2]), 12, 0, 0).getTime()).label;
+        else set[k] = k;
+      }
+    });
+    return Object.keys(set).sort().reverse().map(function(k) { return { key: k, label: set[k] }; });
+  }
+  function renderHisabTab() {
+    if (!isAdmin() || !$("hisabTab") || $("hisabTab").classList.contains("hide")) return;
+    var days = collectHisabDayKeys(), curDay = getHisabDayInfo(Date.now());
+    if (!selectedHisabDayKey || !days.some(function(d) { return d.key === selectedHisabDayKey; })) selectedHisabDayKey = curDay.key;
+    var sel = $("hisabDaySel");
+    if (sel) { sel.innerHTML = days.map(function(d) { return '<option value="' + esc(d.key) + '">' + esc(d.label) + "</option>"; }).join(""); sel.value = selectedHisabDayKey; }
+    var activeDayObj = days.find(function(d) { return d.key === selectedHisabDayKey; }) || curDay;
+    if ($("hisabDayBadge")) $("hisabDayBadge").textContent = activeDayObj.label;
+    var dayResults = savedResults[activeDayObj.key] || {}, resGames = Object.keys(dayResults);
+    if ($("hisabResultCount")) $("hisabResultCount").textContent = String(resGames.length);
+    if ($("hisabResultsList")) {
+      $("hisabResultsList").innerHTML = resGames.length ? resGames.map(function(gName) {
+        return '<div class="hisab-line-item"><span><b>' + esc(gName) + '</b> <small style="color:var(--mut)">(' + (dayResults[gName].isFull ? "Full" : "Half") + ')</small></span><span class="tag">' + esc(dayResults[gName].raw) + "</span></div>";
+      }).join("") : '<div class="bt-status">No result updates saved for ' + esc(activeDayObj.label) + " yet.</div>";
+    }
+    var daySlips = hist.filter(function(s) { return getHisabDayInfo(s.t || Date.now()).key === activeDayObj.key; });
+    var userStats = new Map();
+    function ensureUserStat(uid) { if (!userStats.has(uid)) userStats.set(uid, { uid: uid, play: 0, payout: 0, netAdmin: 0 }); return userStats.get(uid); }
+    users.forEach(function(u) { if (u.role !== "admin") ensureUserStat(u.id); });
+    daySlips.forEach(function(s) {
+      var uid = s.user || "admin", stObj = ensureUserStat(uid), gRes = dayResults[s.head] || null, uMults = getUserMultipliers(uid), sSess = s.session || "OPEN";
+      getExpandedSlipRows(s).forEach(function(r) {
+        var amt = Number(r.a) || 0; if (!amt) return;
+        stObj.play = round2(stObj.play + amt);
+        var cls = classifyNumber(r.n, "OPEN");
+        if (cls.ok && gRes) stObj.payout = round2(stObj.payout + computeEntryPayout(cls.norm, cls.catIndex, r.session || sSess, amt, gRes, uMults));
+      });
+    });
+    var rowsArr = Array.from(userStats.values()).map(function(uStat) { uStat.netAdmin = round2(uStat.play - uStat.payout); return uStat; });
+    var signedSum = 0, slipLines = ["(" + activeDayObj.label + ")"];
+    rowsArr.forEach(function(uStat) {
+      signedSum = round2(signedSum + uStat.netAdmin);
+      slipLines.push((uStat.uid.charAt(0).toUpperCase() + uStat.uid.slice(1)) + "=" + Math.abs(uStat.netAdmin) + (uStat.netAdmin >= 0 ? "+" : "-"));
+    });
+    slipLines.push("=========");
+    slipLines.push(activeDayObj.weekday + " final Hisab = " + Math.abs(signedSum) + (signedSum >= 0 ? "+" : "-"));
+    if ($("adminFinalSlipPre")) $("adminFinalSlipPre").textContent = slipLines.join("\n");
+    if ($("hisabUserCount")) $("hisabUserCount").textContent = String(rowsArr.length);
+    if ($("hisabUserBreakdown")) {
+      $("hisabUserBreakdown").innerHTML = rowsArr.length ? rowsArr.map(function(uStat) {
+        var isPos = uStat.netAdmin >= 0;
+        return '<div class="hisab-line-item"><div><b>' + esc(uStat.uid) + '</b><br><small style="color:var(--mut)">Play: ' + uStat.play + " · Payout: " + uStat.payout + '</small></div><span class="' + (isPos ? "plus-val" : "minus-val") + '">' + esc(Math.abs(uStat.netAdmin) + (isPos ? "+" : "-")) + "</span></div>";
+      }).join("") : '<div class="bt-status">No entries for this Hisab day.</div>';
+    }
+  }
+
+  function renderMarketTab() {
+    if (!isAdmin() || !$("mktHeadingsList")) return;
+    marketConfig = normalizeMarketConfig(marketConfig, heads);
+    $("mktHeadingsList").innerHTML = heads.map(function(hName, idx) {
+      var cfg = marketConfig[hName], openCfg = cfg.sessions.OPEN || { active: true, cutoff: "" }, closeCfg = cfg.sessions.CLOSE || { active: true, cutoff: "" };
+      return '<div class="stat-group" data-mhead="' + esc(hName) + '">' +
+        '<div class="stat-head"><b>' + esc(hName) + "</b>" +
+          '<div class="user-controls-row">' +
+            '<select class="m-h-active" data-mh="' + esc(hName) + '"><option value="1"' + (cfg.active !== false ? " selected" : "") + '>Active</option><option value="0"' + (cfg.active === false ? " selected" : "") + '>Closed</option></select>' +
+            (heads.length > 1 ? '<button type="button" class="logout-mini" data-delmhead="' + esc(hName) + '">Remove</button>' : "") +
+          "</div>" +
+        "</div>" +
+        '<div class="limit-grid">' +
+          '<div class="limit-field"><label>Rename Heading</label><input type="text" class="m-h-rename" data-mh="' + esc(hName) + '" data-midx="' + idx + '" value="' + esc(hName) + '"></div>' +
+          '<div class="limit-field"><label>Heading Cut-Off (HH:MM)</label><input type="time" class="m-h-cutoff" data-mh="' + esc(hName) + '" value="' + esc(cfg.cutoff || "") + '"></div>' +
+          '<div class="limit-field"><label>OPEN Session</label><select class="m-s-active" data-mh="' + esc(hName) + '" data-ms="OPEN"><option value="1"' + (openCfg.active !== false ? " selected" : "") + '>Open</option><option value="0"' + (openCfg.active === false ? " selected" : "") + '>Locked</option></select></div>' +
+          '<div class="limit-field"><label>OPEN Cut-Off (HH:MM)</label><input type="time" class="m-s-cutoff" data-mh="' + esc(hName) + '" data-ms="OPEN" value="' + esc(openCfg.cutoff || "") + '"></div>' +
+          '<div class="limit-field"><label>CLOSE Session</label><select class="m-s-active" data-mh="' + esc(hName) + '" data-ms="CLOSE"><option value="1"' + (closeCfg.active !== false ? " selected" : "") + '>Open</option><option value="0"' + (closeCfg.active === false ? " selected" : "") + '>Locked</option></select></div>' +
+          '<div class="limit-field"><label>CLOSE Cut-Off (HH:MM)</label><input type="time" class="m-s-cutoff" data-mh="' + esc(hName) + '" data-ms="CLOSE" value="' + esc(closeCfg.cutoff || "") + '"></div>' +
+        "</div>" +
+        '<div class="row" style="margin:6px 0 0"><button type="button" class="btn-primary m-save-btn" data-savemh="' + esc(hName) + '" style="padding:9px 12px;font-size:12px">Save Market Rules</button></div>' +
+      "</div>";
+    }).join("");
+  }
+
+  function renderUserList() {
+    if (!$("userListBox")) return;
+    var codeMap = getUserCodeMap(users);
+    $("userCountBadge").textContent = String(users.length);
+    $("userListBox").innerHTML = users.map(function(u) {
+      var normU = normalizeUserObj(u), m = normU.multipliers, isAdm = normU.role === "admin";
+      var statusSelectHtml = isAdm ? '<span class="status-chip active">ACTIVE (BOSS)</span>' :
+        '<select class="u-status-sel" data-uid="' + esc(normU.id) + '" aria-label="Status for ' + esc(normU.id) + '">' +
+          '<option value="active"' + (normU.status === "active" ? " selected" : "") + '>Active</option>' +
+          '<option value="paused"' + (normU.status === "paused" ? " selected" : "") + '>Paused (No Slips)</option>' +
+          '<option value="blocked"' + (normU.status === "blocked" ? " selected" : "") + '>Blocked (No Login)</option>' +
+        "</select>";
+      return '<div class="user-row"><div class="user-row-top"><div><b>' + esc(normU.id) + '</b> <span class="tag">ID: ' + esc(codeMap[normU.id] || "") + '</span></div><div class="user-controls-row">' + statusSelectHtml + (isAdm ? "" : '<button type="button" class="logout-mini" data-deluser="' + esc(normU.id) + '">Remove</button>') + "</div></div>" +
+        '<div class="mult-box"><div style="font-family:\'Outfit\',sans-serif;font-size:11.5px;font-weight:800;color:#c4b5fd;margin-bottom:6px">Payout Multipliers (' + esc(normU.id) + ")</div>" +
+        '<div class="limit-grid" style="margin:4px 0">' +
+          '<div class="limit-field"><label>Single (×)</label><input type="number" step="any" min="0" class="m-inp" data-muid="' + esc(normU.id) + '" data-mkey="single" value="' + m.single + '"></div>' +
+          '<div class="limit-field"><label>Jodi (×)</label><input type="number" step="any" min="0" class="m-inp" data-muid="' + esc(normU.id) + '" data-mkey="jodi" value="' + m.jodi + '"></div>' +
+          '<div class="limit-field"><label>SP Simple 3D (×)</label><input type="number" step="any" min="0" class="m-inp" data-muid="' + esc(normU.id) + '" data-mkey="sp" value="' + m.sp + '"></div>' +
+          '<div class="limit-field"><label>DP Double 3D (×)</label><input type="number" step="any" min="0" class="m-inp" data-muid="' + esc(normU.id) + '" data-mkey="dp" value="' + m.dp + '"></div>' +
+          '<div class="limit-field"><label>TP Triple 3D (×)</label><input type="number" step="any" min="0" class="m-inp" data-muid="' + esc(normU.id) + '" data-mkey="tp" value="' + m.tp + '"></div>' +
+          '<div class="limit-field"><label>JK (×)</label><input type="number" step="any" min="0" class="m-inp" data-muid="' + esc(normU.id) + '" data-mkey="jk" value="' + m.jk + '"></div>' +
+          '<div class="limit-field" style="grid-column:1/-1"><label>SANGAM (×)</label><input type="number" step="any" min="0" class="m-inp" data-muid="' + esc(normU.id) + '" data-mkey="sangam" value="' + m.sangam + '"></div>' +
+        "</div><div class=\"row\" style=\"margin:6px 0 0\"><button type=\"button\" class=\"btn-primary save-mult-btn\" data-saveuid=\"" + esc(normU.id) + '" style="padding:8px 10px;font-size:11.5px">Save Multipliers</button></div></div></div>';
+    }).join("");
+  }
+
+  function showSlip(s) {
+    curSlip = s;
+    var sid = ensureSlipId(s), sums = s.partTotals || computeFiveTotals(s.rows);
+    var partLines = CATS.map(function(name, idx) { return sums[idx] ? '<div class="l"><span>' + name + "</span><span>" + sums[idx] + "</span></div>" : ""; }).join("");
+    $("slip").innerHTML = '<div class="ts">' + stamp(s.t) + "</div><h2>" + esc(s.head) + (s.session ? " (" + s.session + ")" : "") + '</h2><div class="l"><span>Slip #' + esc(sid) + ' · User</span><span>' + esc(s.user || "admin") + "</span></div><hr>" + s.rows.map(function(r) { return '<div class="l"><span>' + esc(r.slipLabel || r.n) + "</span><span>" + esc(rowDisplayAmount(r)) + "</span></div>"; }).join("") + "<hr>" + partLines + '<div class="l"><b>TOTAL</b><b>' + s.total + "</b></div><hr><div><b>Warning</b><br>" + WARN + "</div>";
+    closeDrawer(); $("app").classList.add("hide"); $("slipwrap").classList.remove("hide");
+  }
+  function formatSlipText(s) {
+    var sid = ensureSlipId(s), sums = s.partTotals || computeFiveTotals(s.rows);
+    var parts = CATS.map(function(name, idx) { return sums[idx] ? name + ": " + sums[idx] : ""; }).filter(Boolean).join("\n");
+    return stamp(s.t) + "\nSlip #" + sid + " · " + s.head + (s.session ? " (" + s.session + ")" : "") + "\n--------------------\n" + s.rows.map(function(r) { return (r.slipLabel || r.n) + " = " + rowDisplayAmount(r); }).join("\n") + "\n--------------------\n" + (parts ? parts + "\n--------------------\n" : "") + "TOTAL: " + s.total + "\n\nWarning:\n" + WARN;
+  }
+
+  var btDevice = null, btChar = null, isPrinting = false;
+  function renderSlipBitmap384(s, lumThreshold) {
+    var W = 384, pad = 16, sid = ensureSlipId(s), sums = s.partTotals || computeFiveTotals(s.rows), activeParts = [];
+    CATS.forEach(function(name, idx) { if (sums[idx]) activeParts.push({ name: name, val: sums[idx] }); });
+    var canvas = document.createElement("canvas"); canvas.width = W; canvas.height = 420 + s.rows.length * 26;
+    var ctx = canvas.getContext("2d"); ctx.fillStyle = "#ffffff"; ctx.fillRect(0, 0, canvas.width, canvas.height); ctx.fillStyle = "#000000"; ctx.textBaseline = "top";
+    var y = 8; ctx.font = "16px monospace"; ctx.textAlign = "right"; ctx.fillText(stamp(s.t), W - pad, y); y += 24;
+    ctx.font = "bold 22px sans-serif"; ctx.textAlign = "left"; ctx.fillText("#" + sid + " " + s.head + (s.session ? " (" + s.session + ")" : ""), pad, y); y += 34;
+    ctx.font = "20px monospace"; s.rows.forEach(function(r) { ctx.fillText((r.slipLabel || r.n) + " = " + rowDisplayAmount(r), pad, y); y += 26; }); y += 10;
+    activeParts.forEach(function(p) { ctx.font = "18px sans-serif"; ctx.fillText(p.name + ": " + p.val, pad, y); y += 24; });
+    ctx.font = "bold 22px monospace"; ctx.fillText("TOTAL: " + s.total, pad, y); y += 34;
+    ctx.font = "17px sans-serif"; ctx.fillText(WARN, pad, y); y += 160;
+    var finalH = Math.min(canvas.height, y), imgData = ctx.getImageData(0, 0, W, finalH).data, bytesPerRow = W / 8, bitmap = new Uint8Array(bytesPerRow * finalH);
+    for (var row = 0; row < finalH; row++) {
+      for (var col = 0; col < W; col++) {
+        var idx = (row * W + col) * 4;
+        var lum = 0.299 * imgData[idx] + 0.587 * imgData[idx + 1] + 0.114 * imgData[idx + 2];
+        if (lum < lumThreshold) bitmap[row * bytesPerRow + (col >> 3)] |= (0x80 >> (col & 7));
+      }
+    }
+    return { bitmap: bitmap, widthBytes: bytesPerRow, height: finalH };
+  }
+  async function streamLowDraw(char, buffer) {
+    var useNoResp = !!(char.properties && char.properties.writeWithoutResponse);
+    for (var i = 0; i < buffer.length; i += 64) {
+      var slice = buffer.slice(i, i + 64);
+      if (useNoResp) { await char.writeValueWithoutResponse(slice); await new Promise(function(r) { setTimeout(r, 12); }); }
+      else { await char.writeValue(slice); await new Promise(function(r) { setTimeout(r, 6); }); }
+    }
+  }
+  async function directBluetoothPrint() {
+    if (isPrinting || !curSlip) return;
+    var st = $("btStatus");
+    if (!navigator.bluetooth) { st.textContent = "Web Bluetooth requires Chrome over HTTPS."; return; }
+    isPrinting = true; $("btPrint").disabled = true;
+    try {
+      if (!btDevice || !btDevice.gatt || !btDevice.gatt.connected || !btChar) {
+        btDevice = await navigator.bluetooth.requestDevice({ acceptAllDevices: true, optionalServices: [0xff00, "0000ff00-0000-1000-8000-00805f9b34fb"] });
+        var server = await btDevice.gatt.connect(), services = await server.getPrimaryServices(), foundChar = null;
+        for (var s = 0; s < services.length; s++) {
+          var chars = await services[s].getCharacteristics();
+          for (var c = 0; c < chars.length; c++) { if (chars[c].properties.write || chars[c].properties.writeWithoutResponse) { foundChar = chars[c]; break; } }
+          if (foundChar) break;
+        }
+        if (!foundChar) throw new Error("No writable channel found.");
+        btChar = foundChar;
+      }
+      var r = renderSlipBitmap384(curSlip, 100);
+      await streamLowDraw(btChar, new Uint8Array([0x1b, 0x40]));
+      var header = new Uint8Array([0x1d, 0x76, 0x30, 0x00, r.widthBytes & 0xff, (r.widthBytes >> 8) & 0xff, r.height & 0xff, (r.height >> 8) & 0xff]);
+      var footer = new Uint8Array(20).fill(0x0a), payload = new Uint8Array(header.length + r.bitmap.length + footer.length);
+      payload.set(header, 0); payload.set(r.bitmap, header.length); payload.set(footer, header.length + r.bitmap.length);
+      await streamLowDraw(btChar, payload);
+      st.textContent = "Print complete ✓";
+    } catch (err) { btChar = null; st.textContent = "Print stopped: " + err.message; }
+    finally { isPrinting = false; $("btPrint").disabled = false; }
+  }
+
+  function switchTab(n) {
+    if ((n === 4 || n === 6 || n === 7 || n === 8) && !isAdmin()) n = 1;
+    closeDrawer(); $("slipwrap").classList.add("hide"); $("app").classList.remove("hide");
+    resetArm($("clr"), "Clear"); resetArm($("dreset"), "Delete Heading Data");
+    $("desk").classList.toggle("hide", n !== 1); $("hist").classList.toggle("hide", n !== 2);
+    $("data").classList.toggle("hide", n !== 3); $("sync").classList.toggle("hide", n !== 4);
+    $("verifyTab").classList.toggle("hide", n !== 5); $("loadingTab").classList.toggle("hide", n !== 6);
+    $("hisabTab").classList.toggle("hide", n !== 7); if ($("marketTab")) $("marketTab").classList.toggle("hide", n !== 8);
+    $("t1").className = n === 1 ? "nav-item on" : "nav-item"; $("t2").className = n === 2 ? "nav-item on" : "nav-item";
+    $("t3").className = n === 3 ? "nav-item on" : "nav-item";
+    if ($("t6")) $("t6").className = n === 6 ? "nav-item on admin-only" : "nav-item admin-only";
+    if ($("t7")) $("t7").className = n === 7 ? "nav-item on admin-only" : "nav-item admin-only";
+    $("t5").className = n === 5 ? "nav-item on" : "nav-item";
+    if ($("t4")) $("t4").className = n === 4 ? "nav-item on admin-only" : "nav-item admin-only";
+    if ($("t8")) $("t8").className = n === 8 ? "nav-item on admin-only" : "nav-item admin-only";
+    if (n === 1) updateSessionUI(); if (n === 2) renderHistory(); if (n === 3) renderDataTab();
+    if (n === 4) renderUserList(); if (n === 5) { populateUserSelects(); updatePublishedResultReadout(); }
+    if (n === 6) renderLoadingTab(); if (n === 7) renderHisabTab(); if (n === 8) renderMarketTab();
+  }
+
+  $("openMenu").onclick = openDrawer; $("closeMenu").onclick = closeDrawer; $("drawerBackdrop").onclick = closeDrawer;
+  $("logoHome").onclick = function() { switchTab(1); }; $("quickNewBtn").onclick = function() { switchTab(1); };
+  $("t1").onclick = function() { switchTab(1); }; $("t2").onclick = function() { switchTab(2); }; $("t3").onclick = function() { switchTab(3); };
+  if ($("t6")) $("t6").onclick = function() { switchTab(6); }; if ($("t7")) $("t7").onclick = function() { switchTab(7); };
+  $("t5").onclick = function() { switchTab(5); };
+  if ($("t4")) $("t4").onclick = function() { switchTab(4); }; if ($("t8")) $("t8").onclick = function() { switchTab(8); };
+
+  $("sessionSel").onchange = updateSessionUI;
+  $("head").onchange = function() { hi = +$("head").value; sv("jio_play_hi_v24", hi); updateSessionUI(); };
+  $("add").onclick = parseAndAdd;
+  $("list").onclick = function(e) {
+    var d = e.target.getAttribute("data-d"), ed = e.target.getAttribute("data-e");
+    if (d !== null) { e.preventDefault(); rows.splice(+d, 1); renderDesk(); }
+    else if (ed !== null) { var r = rows[+ed]; var lbl = r.slipLabel || r.n; $("inp").value = r.a === null ? lbl + "=" : lbl + "=" + r.a; rows.splice(+ed, 1); renderDesk(); $("inp").focus(); }
+  };
+  $("clr").onclick = function() { if (!rows.length) return; confirmTap(this, "Clear", "Tap again to clear", function() { rows = []; $("errbox").classList.add("hide"); renderDesk(); }); };
+
+  $("gen").onclick = function() {
+    var activeHeadName = heads[hi] || heads[0], activeSessName = $("sessionSel").value || "OPEN";
+    if (!isAdmin()) {
+      var rec = refreshCurrentUserRecord();
+      if (!rec || rec.status === "blocked") { showLoginStatus("Your account is blocked.", true); showLogin(); return; }
+      if (rec.status === "paused") { applyRolePermissions(); return; }
+      var av = checkHeadingSessionAvailability(activeHeadName, activeSessName);
+      if (!av.allowed) { $("errbox").textContent = av.reason; $("errbox").classList.remove("hide"); return; }
+    }
+    if (!rows.length) return;
+    var pending = rows.filter(function(r) { return r.a === null; }).length;
+    if (pending) { var btn = this; btn.textContent = pending + " entry needs value"; setTimeout(function() { btn.textContent = "Generate & Save Slip"; }, 2200); return; }
+    var compactRows = rows.map(function(r) {
+      var copyR = { n: r.n, slipLabel: r.slipLabel || r.n, a: r.a, cat: r.cat, session: r.session };
+      if (Array.isArray(r.expanded) && r.expanded.length) copyR.expanded = r.expanded.map(function(ex) { return { n: ex.n, a: r.a, cat: ex.cat }; });
+      return copyR;
+    });
+    var expandedRows = getExpandedSlipRows({ rows: compactRows, session: activeSessName }), partTotals = computeFiveTotals(compactRows), total = round2(partTotals.reduce(function(a, b) { return a + b; }, 0)), nowTs = Date.now(), uid = currentUser ? currentUser.id : "admin";
+    var slip = { t: nowTs, slipId: nextGlobalSlipId(uid), cloudKey: "slip_" + nowTs + "_" + Math.random().toString(36).slice(2, 8), head: activeHeadName, session: activeSessName, user: uid, rows: compactRows, expandedRows: expandedRows, partTotals: partTotals, total: total };
+    hist.unshift(slip); sv("jio_play_hist_v24", hist); rows = []; renderDesk(); showSlip(slip); pushSlipToFirebase(slip); pushMetaToFirebase();
+  };
+
+  $("hsearch").oninput = renderHistory; $("hfilter").onchange = renderHistory;
+  if ($("hUserFilter")) $("hUserFilter").onchange = renderHistory;
+  $("hlist").onclick = function(e) { var c = e.target.closest("[data-v]"); if (c) showSlip(hist[+c.getAttribute("data-v")]); };
+  $("dsel").onchange = function() { selectedDataSlipId = "*"; drawDataReport(); };
+  if ($("dSessionFilter")) $("dSessionFilter").onchange = function() { selectedDataSlipId = "*"; drawDataReport(); };
+  if ($("dUserFilter")) $("dUserFilter").onchange = function() { selectedDataSlipId = "*"; renderDataTab(); };
+  if ($("dSlipVerticalList")) {
+    $("dSlipVerticalList").onclick = function(e) { var item = e.target.closest("[data-dslip]"); if (!item) return; selectedDataSlipId = item.getAttribute("data-dslip") || "*"; drawDataReport(); };
+  }
+  $("dcopy").onclick = function() { if ($("dtxt").value) copyTextReliable($("dtxt").value, this, "Copy Report"); };
+  $("dcopyUser").onclick = function() { if ($("dtxt").value) copyTextReliable($("dtxt").value, this, "Copy Report"); };
+  $("dreset").onclick = function() {
+    if (!isAdmin()) return; var target = $("dsel").value; if (!target) return;
+    confirmTap(this, "Delete Heading Data", "Tap again to delete", function() {
+      var removed = target === "*" ? hist.slice() : hist.filter(function(s) { return s.head === target; });
+      hist = target === "*" ? [] : hist.filter(function(s) { return s.head !== target; });
+      sv("jio_play_hist_v24", hist); selectedDataSlipId = "*"; renderDesk(); renderDataTab();
+      removed.forEach(function(s) { deleteSlipFromFirebase(s); });
+    });
+  };
+  $("lGameSel").onchange = renderLoadingTab; $("lSessionSel").onchange = renderLoadingTab;
+  if ($("lUserSel")) $("lUserSel").onchange = renderLoadingTab;
+  if ($("lNumSearch")) $("lNumSearch").oninput = renderLoadingTab; if ($("lSortSel")) $("lSortSel").onchange = renderLoadingTab;
+  if ($("lOneClickCopyBtn")) {
+    $("lOneClickCopyBtn").onclick = function() {
+      if (!isAdmin()) return;
+      var txt = buildAdminLoadingCopyText();
+      if (!txt) { this.textContent = "No Data"; var self = this; setTimeout(function() { self.textContent = "Copy All 5 Parts"; }, 1400); return; }
+      copyTextReliable(txt, this, "Copy All 5 Parts");
+    };
+  }
+  document.querySelectorAll(".mode-chip-btn").forEach(function(btn) { btn.onclick = function() { activeLoadMode = btn.getAttribute("data-lmode") || "SINGLE"; if ($("lNumSearch")) $("lNumSearch").value = ""; renderLoadingTab(); }; });
+  function handleLoadTap(e) {
+    var item = e.target.closest("[data-ldigit]"); if (!item) return;
+    var d = item.getAttribute("data-ldigit"), amt = Number(item.getAttribute("data-lamt")) || 0, linked = getLinkedExposureForNumber(lastLoadSnapshot, d);
+    $("lSelectedDetail").innerHTML = "<b>" + esc(d) + "</b> Direct: <b>" + esc(fmtRs(amt)) + "</b> · Linked JK+SANGAM: <b>" + esc(fmtRs(round2(linked.jkTotal + linked.sangamTotal))) + "</b>";
+    renderLinkedExposureSummary(lastLoadSnapshot, d);
+  }
+  $("lChartBars").onclick = handleLoadTap;
+  if ($("lMultiTiles")) $("lMultiTiles").onclick = handleLoadTap;
+  $("lRefreshBanner").onclick = function() { if (getFbBase()) pullStateFromFirebase(true); else renderLoadingTab(); $("lRefreshText").textContent = "Updated ✓"; setTimeout(function() { $("lRefreshText").textContent = "Kindly check after every 5 min.. (Tap to Refresh)"; }, 2000); };
+
+  if ($("hisabDaySel")) $("hisabDaySel").onchange = function() { selectedHisabDayKey = this.value; renderHisabTab(); };
+  if ($("hisabRefreshBtn")) $("hisabRefreshBtn").onclick = function() { if (getFbBase()) pullStateFromFirebase(true); renderHisabTab(); };
+  if ($("copyFinalHisabBtn")) $("copyFinalHisabBtn").onclick = function() { if (isAdmin() && $("adminFinalSlipPre")) copyTextReliable($("adminFinalSlipPre").textContent, this, "Copy Final Slip"); };
+  if ($("shareFinalHisabBtn")) $("shareFinalHisabBtn").onclick = function() {
+    if (!isAdmin() || !$("adminFinalSlipPre")) return;
+    var txt = $("adminFinalSlipPre").textContent;
+    if (navigator.share) navigator.share({ title: "JIO PLAY Hisab", text: txt }).catch(function() {}); else copyTextReliable(txt, this, "Share");
+  };
+
+  $("vHead").onchange = function() { updatePublishedResultReadout(); $("vOutput").innerHTML = ""; };
+  $("vRunBtn").onclick = runResultVerification;
+  if ($("vSaveBtn")) $("vSaveBtn").onclick = publishResultToAllUsers;
+  $("vResultInput").onkeydown = function(e) { if (e.key === "Enter") publishResultToAllUsers(); };
+
+  if ($("saveAdminCredsBtn")) {
+    $("saveAdminCredsBtn").onclick = function() {
+      if (!isAdmin()) return;
+      var nId = ($("admNewId").value || "").trim(), nPass = ($("admNewPass").value || "").trim();
+      if (!nId || !nPass) { if ($("admCredsMsg")) $("admCredsMsg").textContent = "Enter both new Admin ID and Password."; return; }
+      var admIdx = users.findIndex(function(u) { return u.role === "admin"; });
+      if (admIdx >= 0) { users[admIdx].id = nId; users[admIdx].pass = nPass; }
+      else users.unshift(normalizeUserObj({ id: nId, pass: nPass, role: "admin", status: "active" }));
+      currentUser.id = nId; currentUser.pass = nPass; sv("jio_play_users_v24", users);
+      $("admNewId").value = ""; $("admNewPass").value = ""; applyRolePermissions();
+      if ($("admCredsMsg")) $("admCredsMsg").textContent = 'Updated Admin credentials to "' + nId + '" ✓';
+      pushMetaToFirebase();
+    };
+  }
+  $("createUserBtn").onclick = function() {
+    if (!isAdmin()) return;
+    var uid = ($("newUid").value || "").trim(), upwd = ($("newUpwd").value || "").trim();
+    if (!uid || !upwd) { $("userMgmtMsg").textContent = "Enter ID and Password."; return; }
+    if (users.some(function(u) { return u.id.toLowerCase() === uid.toLowerCase(); })) { $("userMgmtMsg").textContent = "User already exists."; return; }
+    users.push(normalizeUserObj({ id: uid, pass: upwd, role: "user", status: "active", multipliers: DEFAULT_MULTIPLIERS }));
+    sv("jio_play_users_v24", users); $("newUid").value = ""; $("newUpwd").value = "";
+    $("userMgmtMsg").textContent = 'Added "' + uid + '" ✓'; renderUserList(); populateUserSelects(); pushMetaToFirebase();
+  };
+  $("userListBox").onchange = function(e) {
+    if (!isAdmin()) return; var sel = e.target.closest(".u-status-sel"); if (!sel) return;
+    var targetUid = sel.getAttribute("data-uid"), nextStatus = sel.value;
+    users = users.map(function(u) { if (u.id === targetUid && u.role !== "admin") { var copy = normalizeUserObj(u); copy.status = nextStatus; return copy; } return u; });
+    sv("jio_play_users_v24", users);
+    if ($("userMgmtMsg")) $("userMgmtMsg").textContent = 'Updated "' + targetUid + '" status to ' + nextStatus.toUpperCase() + " ✓";
+    pushMetaToFirebase();
+  };
+  $("userListBox").onclick = function(e) {
+    if (!isAdmin()) return;
+    var delId = e.target.getAttribute("data-deluser");
+    if (delId) { users = users.filter(function(u) { return u.id !== delId || u.role === "admin"; }); sv("jio_play_users_v24", users); renderUserList(); populateUserSelects(); pushMetaToFirebase(); return; }
+    var saveBtn = e.target.closest(".save-mult-btn");
+    if (saveBtn) {
+      var mUid = saveBtn.getAttribute("data-saveuid"), inputs = $("userListBox").querySelectorAll('.m-inp[data-muid="' + mUid + '"]'), nextM = {};
+      inputs.forEach(function(inp) { nextM[inp.getAttribute("data-mkey")] = inp.value; });
+      users = users.map(function(u) { if (u.id === mUid) { var copy = normalizeUserObj(u); copy.multipliers = normalizeMultipliers(nextM); return copy; } return u; });
+      sv("jio_play_users_v24", users);
+      if ($("userMgmtMsg")) $("userMgmtMsg").textContent = 'Saved multipliers for "' + mUid + '" ✓';
+      renderHisabTab(); pushMetaToFirebase();
+    }
+  };
+
+  if ($("mktAddHeadingBtn")) {
+    $("mktAddHeadingBtn").onclick = function() {
+      if (!isAdmin()) return;
+      var newName = ($("mktNewHeadingName").value || "").trim().toUpperCase(); if (!newName) return;
+      if (heads.indexOf(newName) < 0) heads.push(newName);
+      marketConfig = normalizeMarketConfig(marketConfig, heads);
+      sv("jio_play_heads_v24", heads); sv("jio_play_market_v39", marketConfig);
+      $("mktNewHeadingName").value = ""; fillHeads(); renderMarketTab();
+      if ($("mktMsg")) $("mktMsg").textContent = 'Added "' + newName + '" ✓';
+      pushMetaToFirebase();
+    };
+  }
+  if ($("mktHeadingsList")) {
+    $("mktHeadingsList").onclick = function(e) {
+      if (!isAdmin()) return;
+      var delH = e.target.getAttribute("data-delmhead");
+      if (delH && heads.length > 1) {
+        heads = heads.filter(function(h) { return h !== delH; }); delete marketConfig[delH];
+        if (hi >= heads.length) hi = 0;
+        sv("jio_play_heads_v24", heads); sv("jio_play_hi_v24", hi); sv("jio_play_market_v39", marketConfig);
+        fillHeads(); renderMarketTab(); if ($("mktMsg")) $("mktMsg").textContent = 'Removed "' + delH + '" ✓';
+        pushMetaToFirebase(); return;
+      }
+      var saveBtn = e.target.closest(".m-save-btn");
+      if (saveBtn) {
+        var origH = saveBtn.getAttribute("data-savemh"), card = saveBtn.closest('[data-mhead="' + origH + '"]'); if (!card) return;
+        var renInp = card.querySelector(".m-h-rename"), hActSel = card.querySelector(".m-h-active"), hCutInp = card.querySelector(".m-h-cutoff");
+        var openActSel = card.querySelector('.m-s-active[data-ms="OPEN"]'), openCutInp = card.querySelector('.m-s-cutoff[data-ms="OPEN"]');
+        var closeActSel = card.querySelector('.m-s-active[data-ms="CLOSE"]'), closeCutInp = card.querySelector('.m-s-cutoff[data-ms="CLOSE"]');
+        var nextName = (renInp ? renInp.value : origH).trim().toUpperCase() || origH, idx = heads.indexOf(origH);
+        if (idx >= 0 && nextName !== origH) heads[idx] = nextName;
+        var oldCfg = marketConfig[origH] || { active: true, cutoff: "", sessions: { OPEN: { active: true, cutoff: "" }, CLOSE: { active: true, cutoff: "" } } };
+        delete marketConfig[origH];
+        marketConfig[nextName] = {
+          active: hActSel ? hActSel.value === "1" : (oldCfg.active !== false),
+          cutoff: hCutInp ? hCutInp.value : (oldCfg.cutoff || ""),
+          sessions: {
+            OPEN: { active: openActSel ? openActSel.value === "1" : true, cutoff: openCutInp ? openCutInp.value : "" },
+            CLOSE: { active: closeActSel ? closeActSel.value === "1" : true, cutoff: closeCutInp ? closeCutInp.value : "" }
+          }
+        };
+        sv("jio_play_heads_v24", heads); sv("jio_play_market_v39", marketConfig);
+        fillHeads(); updateSessionUI(); renderMarketTab();
+        if ($("mktMsg")) $("mktMsg").textContent = 'Saved "' + nextName + '" cut-off & session rules for all users ✓';
+        pushMetaToFirebase();
+      }
+    };
+  }
+
+  $("fbUrlInput").value = fbUrl;
+  $("saveFbBtn").onclick = function() { if (!isAdmin()) return; fbUrl = ($("fbUrlInput").value || "").trim(); sv("jio_play_fb_url_v24", fbUrl); if (fbUrl) pullStateFromFirebase(false); };
+  $("pullFbBtn").onclick = function() { if (!isAdmin()) return; pullStateFromFirebase(false); };
+  $("btPrint").onclick = directBluetoothPrint; $("print").onclick = function() { window.print(); };
+  $("copy").onclick = function() { if (curSlip) copyTextReliable(formatSlipText(curSlip), this, "Copy Slip"); };
+  $("shareBtn").onclick = function() { if (!curSlip) return; var t = formatSlipText(curSlip); if (navigator.share) navigator.share({ title: curSlip.head, text: t }).catch(function() {}); else copyTextReliable(t, this, "Share"); };
+  $("sdel").onclick = function() {
+    if (!curSlip) return;
+    confirmTap(this, "Delete Slip", "Tap again to delete", function() {
+      var target = curSlip; hist = hist.filter(function(s) { return s.t !== target.t; }); sv("jio_play_hist_v24", hist);
+      renderDesk(); $("back").onclick(); deleteSlipFromFirebase(target);
+    });
+  };
+  $("back").onclick = function() { resetArm($("sdel"), "Delete Slip"); $("slipwrap").classList.add("hide"); $("app").classList.remove("hide"); switchTab(1); };
+
+  $("expJson").onclick = function() {
+    var payload = isAdmin() ? { heads: heads, hist: hist, users: users, savedResults: savedResults, marketConfig: marketConfig, slipCounter: slipCounter } : { hist: getScopedSlips(currentUser.id), savedResults: savedResults };
+    var a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" }));
+    a.download = "jio-play-backup.json"; a.click();
+  };
+  $("expCsv").onclick = function() {
+    var csv = ["SlipID,Date,User,Heading,Session,Category,Number,Amount"];
+    getScopedSlips("*").forEach(function(s) {
+      var sid = ensureSlipId(s), dt = new Date(s.t).toISOString();
+      getExpandedSlipRows(s).forEach(function(r) { var cls = classifyNumber(r.n, "OPEN"); csv.push(['"' + sid + '"', '"' + dt + '"', '"' + (s.user || "admin") + '"', '"' + s.head + '"', '"' + (r.session || s.session || "OPEN") + '"', '"' + (cls.ok ? cls.catName : "Other") + '"', '"' + r.n + '"', r.a].join(",")); });
+    });
+    var a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([csv.join("\n")], { type: "text/csv" }));
+    a.download = "jio-play-entries.csv"; a.click();
+  };
+  $("impBtn").onclick = function() {
+    if (!isAdmin()) return; var f = $("impFile").files[0]; if (!f) return;
+    var reader = new FileReader();
+    reader.onload = function() {
+      try {
+        var data = JSON.parse(reader.result);
+        if (Array.isArray(data.heads) && data.heads.length) { heads = data.heads; sv("jio_play_heads_v24", heads); }
+        if (Array.isArray(data.users) && data.users.length) { users = data.users.map(normalizeUserObj).filter(function(u) { return !!u.id; }); sv("jio_play_users_v24", users); renderUserList(); }
+        if (data.savedResults && typeof data.savedResults === "object") { savedResults = data.savedResults; sv("jio_play_results_v38", savedResults); }
+        if (data.marketConfig && typeof data.marketConfig === "object") { marketConfig = normalizeMarketConfig(data.marketConfig, heads); sv("jio_play_market_v39", marketConfig); }
+        fillHeads();
+        if (Array.isArray(data.hist)) { hist = data.hist; hist.forEach(function(s) { ensureSlipId(s); }); sv("jio_play_hist_v24", hist); renderDesk(); }
+        $("syncMsg").textContent = "Backup restored (" + hist.length + " slips).";
+      } catch (e) { $("syncMsg").textContent = "Invalid backup file."; }
+    };
+    reader.readAsText(f);
+  };
+
+  showLogin();
+})();
+</script>
+</body>
+</html>
